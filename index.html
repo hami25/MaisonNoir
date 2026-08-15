@@ -410,6 +410,101 @@ footer .brand{font-size:0.875rc;margin-bottom:12px;display:inline-block}
   .lvl{opacity:1;transform:none}
   .pyr .w i{width:var(--pw,100%)}
 }
+
+/* ======================================================================
+   NUR HANDY — kompakter, klarer, als Liste statt als Kachelraster
+   ====================================================================== */
+@media (max-width: 640px) {
+
+  /* --- Kopfbereich kompakter, damit die Ware früher sichtbar wird --- */
+  .hero { padding: 30px var(--pad) 22px; }
+  .hero h1 { font-size: clamp(38px, 14.5vw, 62px); }
+  .hero h1 span { letter-spacing: .2em; }
+  .rule { height: 32px; margin: 16px auto; }
+  .hero p { font-size: .93rem; line-height: 1.6; max-width: 34ch; }
+  .heroActs { margin-top: 24px; gap: 9px; }
+  .heroActs .btn { flex: 1 1 100%; padding: 14px 18px; }
+
+  /* Kennzahlen als 2x2-Block statt gequetschter Reihe */
+  .facts { margin-top: 28px; }
+  .fact { flex: 1 1 46%; padding: 12px 8px; border-bottom: 1px solid var(--line); }
+  .fact:nth-child(2n) { border-right: none; }
+  .fact:nth-child(n+3) { border-bottom: none; }
+  .fact b { font-size: 1.06rem; }
+  .fact span { font-size: .56rem; letter-spacing: .12em; }
+
+  /* --- Filter: nicht mehr klebend, dafür volle Breite und größere Ziele --- */
+  .filters { position: static; padding: 12px 0 14px; }
+  .gen { padding: 10px 17px; font-size: .95rem; }
+  .cat { padding: 9px 13px; font-size: .74rem; letter-spacing: .09em; }
+  .frow { gap: 8px; }
+  .search { flex: 1 1 100%; padding: 12px 14px; }
+  select.sel { flex: 1 1 calc(50% - 4px); min-width: 0; padding: 11px 10px; font-size: .82rem; }
+  .count { flex: 1 0 100%; margin: 2px 0 0; text-align: right; }
+
+  /* --- Abschnittstitel bleiben beim Scrollen oben stehen --- */
+  .ghead {
+    position: sticky; top: var(--hh, 57px); z-index: 20;
+    background: var(--ink); margin: 24px 0 0; padding: 13px 0 11px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ghead:first-child { margin-top: 0; }
+  .ghead h3 { font-size: 1.18rem; letter-spacing: .14em; }
+  .ghead .ln { display: none; }
+  .ghead span { margin-left: auto; }
+
+  /* --- Produkte als Liste: Nummer, Name, Preis auf einer Zeile --- */
+  .grid { grid-template-columns: 1fr; }
+  .card {
+    flex-direction: row; align-items: center; gap: 13px;
+    padding: 15px 4px; min-height: 0;
+  }
+  .card .top { flex: 1 1 auto; min-width: 0; gap: 12px; align-items: center; }
+  .blot { min-height: 46px; width: 6px; flex: 0 0 6px; align-self: center; }
+  .card .nr { font-size: .68rem; letter-spacing: .1em; }
+  .card h3 { font-size: 1.05rem; margin: 2px 0 3px; }
+  .insp { font-size: .78rem; }
+  .card .fam { display: none; }          /* Farbstreifen zeigt die Familie bereits */
+  .card .plus { display: none; }         /* die ganze Zeile ist antippbar */
+  .card .foot {
+    margin-top: 0; padding-top: 0; border-top: none;
+    flex: 0 0 auto; flex-direction: column; align-items: flex-end; gap: 2px;
+  }
+  .price { font-size: 1.04rem; }
+  .price small { text-align: right; font-size: .6rem; }
+
+  /* --- Produktansicht: Größen untereinander, bequem zu treffen --- */
+  .sizes .size { flex: 1 1 100%; padding: 15px 16px; }
+  .size b { font-size: 1.05rem; }
+  .samp { grid-template-columns: 1fr 1fr; max-height: 220px; }
+  .sc { padding: 11px 10px; }
+
+  /* --- Warenkorb --- */
+  .ci { padding: 15px 0; gap: 12px; }
+  .qty button { width: 32px; height: 32px; }
+  .qty b { width: 36px; }
+  .sum.tot { font-size: 1.28rem; }
+
+  /* --- Duft-Finder --- */
+  .opts { grid-template-columns: 1fr; gap: 9px; }
+  .opt { padding: 16px 16px; text-align: left; }
+  .opt b { font-size: 1.05rem; }
+  .quiz h3 { font-size: 1.32rem; }
+
+  /* --- Verwaltung: Statusknöpfe zweispaltig statt in einer Reihe --- */
+  .ohead { gap: 7px 10px; padding: 13px 13px; }
+  .ohead .c { flex: 1 1 100%; }
+  .sbar { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 12px 13px; }
+  .sbar > .lb { grid-column: 1 / -1; margin: 0 0 2px; }
+  .sbar button { padding: 11px 8px; text-align: center; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .toggle { flex-wrap: wrap; }
+
+  /* --- Größere Tippflächen --- */
+  .btn { padding: 14px 22px; }
+  .hbtn { min-height: 40px; }
+  footer { padding: 30px var(--pad); font-size: .8rem; }
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
