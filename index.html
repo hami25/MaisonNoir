@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MAISON NOIR — Parfümerie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14100E; --ink2:#1B1614; --ink3:#241D1A; --line:#332A25;
+  --gold:#D9BC80; --gold-dim:#BFA067;
+  --bone:#F5F0E7; --smoke:#C3B9AC; --smoke2:#A0958A;
+  --ok:#7FA07A; --warn:#C08A4A; --bad:#A5604F;
+  --sans:'Jost',system-ui,sans-serif;
+  --serif:'Marcellus',Georgia,serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+  --r:2px;
+  --pad:clamp(15px,3.4vw,64px);
+  --wide:min(1720px,95vw);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;font-size:clamp(16px,0.30vw + 14.4px,21px)}
+body{
+  background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:400;
+  font-size:0.9688rc;line-height:1.65;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+  background:
+    radial-gradient(1100px 620px at 12% -8%,rgba(201,169,106,.10),transparent 62%),
+    radial-gradient(900px 560px at 92% 4%,rgba(150,96,110,.07),transparent 60%);
+}
+#veil{position:fixed;inset:-30%;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(closest-side,rgba(201,169,106,.09),transparent 70%);
+  animation:drift 34s ease-in-out infinite alternate}
+@keyframes drift{0%{transform:translate(-6%,-4%) scale(1)}100%{transform:translate(8%,6%) scale(1.25)}}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:none;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+::selection{background:var(--gold);color:var(--ink)}
+
+/* ---------- typography helpers ---------- */
+.eyebrow{font-family:var(--mono);font-size:0.6562rc;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--gold-dim)}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:.02em}
+.muted{color:var(--smoke)}
+.tiny{font-size:0.8rc}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:60;background:rgba(20,16,14,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.bar{display:flex;align-items:center;gap:10px;padding:clamp(10px,1vw,16px) var(--pad);max-width:var(--wide);margin:0 auto}
+.brand{font-family:var(--serif);font-size:1.125rc;letter-spacing:.30em;white-space:nowrap;padding-right:6px}
+.brand b{font-weight:400;color:var(--gold)}
+nav{display:flex;gap:4px;margin-left:14px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  font-size:0.8125rc;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);
+  padding:7px 11px;border-radius:var(--r);white-space:nowrap;transition:color .2s
+}
+nav button:hover{color:var(--bone)}
+nav button.on{color:var(--gold)}
+.hbtn{display:flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid var(--line);
+  border-radius:var(--r);font-size:0.7812rc;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--smoke);transition:.2s;white-space:nowrap}
+.hbtn:hover{border-color:var(--gold-dim);color:var(--bone)}
+.hbtn.gold{border-color:var(--gold-dim);color:var(--gold)}
+.pill{font-family:var(--mono);font-size:0.625rc;background:var(--gold);color:var(--ink);
+  border-radius:20px;padding:1px 6px;font-weight:700}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;padding:clamp(56px,11vw,124px) var(--pad) clamp(40px,7vw,72px);
+  max-width:var(--wide);margin:0 auto;text-align:center}
+.hero h1{font-family:var(--serif);font-weight:400;line-height:1;
+  font-size:clamp(46px,12vw,124px);letter-spacing:.10em;margin:20px 0 0}
+.hero h1 span{display:block;color:var(--gold);font-size:.62em;letter-spacing:.24em;margin-top:.16em}
+.rule{width:1px;height:52px;background:linear-gradient(var(--gold),transparent);margin:26px auto}
+.hero p{max-width:52ch;margin:0 auto;color:var(--smoke);font-size:1.0312rc;line-height:1.7}
+.heroActs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.btn{padding:13px 26px;border:1px solid var(--gold-dim);border-radius:var(--r);
+  font-size:0.7812rc;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);transition:.25s}
+.btn:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.btn.solid{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.btn.solid:hover{background:transparent;color:var(--gold)}
+.btn.ghost{border-color:var(--line);color:var(--smoke)}
+.btn.ghost:hover{background:none;border-color:var(--gold-dim);color:var(--bone)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.facts{display:flex;gap:0;justify-content:center;flex-wrap:wrap;margin-top:46px;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fact{padding:clamp(13px,1.1vw,22px) clamp(18px,2vw,34px);border-right:1px solid var(--line);text-align:center;flex:1 1 150px}
+.fact:last-child{border-right:none}
+.fact b{display:block;font-family:var(--serif);font-size:1.1875rc;color:var(--gold);letter-spacing:.05em}
+.fact span{font-family:var(--mono);font-size:0.6562rc;letter-spacing:.16em;text-transform:uppercase;color:var(--smoke)}
+
+/* ---------- layout ---------- */
+main{position:relative;z-index:2;max-width:var(--wide);margin:0 auto;padding:0 var(--pad) 120px}
+.view{display:none}
+.view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;margin:0 0 22px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.sechead h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,4.4vw,36px);letter-spacing:.06em}
+
+/* ---------- filters ---------- */
+.filters{position:sticky;top:57px;z-index:40;background:rgba(20,16,14,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:14px 0;border-bottom:1px solid var(--line);margin-bottom:26px}
+.gens{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-bottom:10px}
+.gens::-webkit-scrollbar{display:none}
+.gen{padding:9px 20px;font-family:var(--serif);font-size:0.9375rc;letter-spacing:.10em;
+  color:var(--smoke2);border:1px solid transparent;border-radius:var(--r);
+  white-space:nowrap;transition:.2s;display:flex;align-items:center;gap:8px}
+.gen:hover{color:var(--bone)}
+.gen.on{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+.gen i{font-family:var(--mono);font-style:normal;font-size:0.625rc;letter-spacing:.08em;opacity:.8}
+.ghead{display:flex;align-items:center;gap:14px;margin:38px 0 14px}
+.ghead:first-child{margin-top:0}
+.ghead h3{font-family:var(--serif);font-weight:400;font-size:1.4375rc;letter-spacing:.13em;
+  text-transform:uppercase;white-space:nowrap}
+.ghead span{font-family:var(--mono);font-size:0.6875rc;letter-spacing:.13em;color:var(--smoke)}
+.ghead .ln{flex:1;height:1px;background:var(--line)}
+.cats{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cats::-webkit-scrollbar{display:none}
+.cat{padding:8px 14px;font-size:0.7812rc;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--smoke);border-bottom:1px solid transparent;white-space:nowrap;transition:.2s}
+.cat:hover{color:var(--bone)}
+.cat.on{color:var(--gold);border-bottom-color:var(--gold)}
+.frow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.search{flex:1 1 240px;display:flex;align-items:center;gap:9px;
+  border:1px solid var(--line);border-radius:var(--r);padding:9px 13px;background:var(--ink2)}
+.search input{flex:1;background:none;border:none;outline:none;font-size:0.875rc;min-width:0}
+.search input::placeholder{color:var(--smoke2)}
+select.sel{background:var(--ink2);border:1px solid var(--line);border-radius:var(--r);
+  padding:9px 12px;font-size:0.8438rc;color:var(--bone);outline:none}
+.count{font-family:var(--mono);font-size:0.75rc;color:var(--smoke);letter-spacing:.08em;margin-left:auto}
+
+/* ---------- product grid ---------- */
+.grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,clamp(228px,16.5vw,300px)),1fr))}
+.card{background:var(--ink);padding:clamp(15px,1.2vw,24px) clamp(13px,1vw,22px);display:flex;flex-direction:column;
+  gap:11px;text-align:left;position:relative;transition:background .25s;min-height:clamp(196px,15vw,250px)}
+.card:hover{background:var(--ink2)}
+.card .top{display:flex;align-items:flex-start;gap:12px}
+.blot{width:10px;flex:0 0 10px;border-radius:5px;align-self:stretch;min-height:74px;opacity:.85;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.card .nr{font-family:var(--mono);font-size:0.6875rc;color:var(--gold-dim);letter-spacing:.12em}
+.card h3{font-family:var(--serif);font-weight:400;font-size:1.0938rc;line-height:1.25;
+  letter-spacing:.03em;margin:5px 0 6px}
+.insp{font-size:0.7812rc;color:var(--smoke);letter-spacing:.03em}
+.fam{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);
+  font-size:0.6562rc;letter-spacing:.12em;text-transform:uppercase;color:var(--smoke)}
+.fam i{width:5px;height:5px;border-radius:50%;display:block}
+.card .foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;
+  padding-top:12px;border-top:1px solid var(--line)}
+.price{font-family:var(--serif);font-size:1.1875rc;color:var(--gold);letter-spacing:.03em}
+.price small{font-family:var(--mono);font-size:0.625rc;color:var(--smoke);letter-spacing:.1em;
+  display:block;text-transform:uppercase}
+.plus{width:32px;height:32px;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;color:var(--smoke);transition:.2s;flex:0 0 32px}
+.card:hover .plus{border-color:var(--gold);color:var(--gold)}
+.empty{padding:70px 20px;text-align:center;color:var(--smoke2);
+  border:1px dashed var(--line);border-radius:var(--r)}
+.empty b{display:block;font-family:var(--serif);font-size:1.25rc;color:var(--bone);margin-bottom:8px}
+
+/* ---------- modal / drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(8,6,5,.78);backdrop-filter:blur(5px);
+  z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:95;background:var(--ink2);border:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.sheet.right{top:0;right:0;bottom:0;width:min(clamp(400px,30vw,560px),100%);transform:translateX(102%);border-right:none}
+.sheet.right.on{transform:none}
+.sheet.mid{top:50%;left:50%;width:min(clamp(620px,46vw,820px),calc(100% - 24px));max-height:88vh;border-radius:var(--r);
+  transform:translate(-50%,-46%) scale(.97);opacity:0;pointer-events:none}
+.sheet.mid.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.shead{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:18px 22px;border-bottom:1px solid var(--line);flex:0 0 auto}
+.shead h3{font-family:var(--serif);font-weight:400;font-size:1.1875rc;letter-spacing:.09em}
+.x{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+  color:var(--smoke);border:1px solid var(--line);flex:0 0 32px;font-size:0.9375rc}
+.x:hover{color:var(--bone);border-color:var(--gold-dim)}
+.sbody{padding:22px;overflow-y:auto;flex:1}
+.sfoot{padding:18px 22px;border-top:1px solid var(--line);background:var(--ink3);flex:0 0 auto}
+
+/* ---------- pyramid ---------- */
+.pyr{display:flex;flex-direction:column;gap:0;margin:18px 0;border:1px solid var(--line)}
+.lvl{display:flex;gap:14px;padding:14px 16px;border-bottom:1px solid var(--line);
+  align-items:flex-start;opacity:0;transform:translateX(-10px)}
+.lvl:last-child{border-bottom:none}
+.pyr.go .lvl{animation:lin .5s ease forwards}
+.pyr.go .lvl:nth-child(1){animation-delay:.05s}
+.pyr.go .lvl:nth-child(2){animation-delay:.20s}
+.pyr.go .lvl:nth-child(3){animation-delay:.35s}
+@keyframes lin{to{opacity:1;transform:none}}
+.lvl .k{font-family:var(--mono);font-size:0.6562rc;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-dim);flex:0 0 88px;padding-top:3px}
+.lvl .v{flex:1;font-size:0.9062rc;color:var(--bone);line-height:1.5}
+.lvl .w{flex:0 0 46px;height:3px;border-radius:2px;margin-top:9px;background:var(--line);overflow:hidden}
+.lvl .w i{display:block;height:100%;background:var(--gold);width:0}
+.pyr.go .w i{animation:fill .8s ease forwards}
+.pyr.go .lvl:nth-child(1) .w i{animation-delay:.2s}
+.pyr.go .lvl:nth-child(2) .w i{animation-delay:.35s}
+.pyr.go .lvl:nth-child(3) .w i{animation-delay:.5s}
+@keyframes fill{to{width:var(--pw,100%)}}
+
+/* ---------- sizes / forms ---------- */
+.sizes{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 0}
+.size{flex:1 1 130px;border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;
+  text-align:left;transition:.2s}
+.size:hover{border-color:var(--gold-dim)}
+.size.on{border-color:var(--gold);background:rgba(201,169,106,.07)}
+.size b{display:block;font-family:var(--serif);font-size:1.0625rc;letter-spacing:.06em}
+.size span{font-family:var(--mono);font-size:0.7188rc;color:var(--gold);letter-spacing:.05em}
+.size em{display:block;font-style:normal;font-size:0.6562rc;color:var(--ok);margin-top:4px}
+label.f{display:block;margin-bottom:14px}
+label.f>span{display:block;font-family:var(--mono);font-size:0.6562rc;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--smoke);margin-bottom:6px}
+.inp{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:var(--r);
+  padding:11px 13px;outline:none;font-size:0.9062rc;transition:border-color .2s}
+.inp:focus{border-color:var(--gold-dim)}
+textarea.inp{resize:vertical;min-height:74px;font-family:var(--sans)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+.note{border-left:2px solid var(--gold-dim);padding:12px 15px;background:var(--ink3);
+  font-size:0.8625rc;color:var(--bone);margin:14px 0;line-height:1.55}
+.note b{color:var(--gold);font-weight:400}
+.err{color:var(--bad);font-size:0.8125rc;margin-top:10px;min-height:1px}
+
+/* ---------- cart ---------- */
+.ci{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.ci .bl{width:5px;align-self:stretch;border-radius:3px;flex:0 0 5px;min-height:46px}
+.ci .m{flex:1;min-width:0}
+.ci h4{font-family:var(--serif);font-weight:400;font-size:0.9688rc;line-height:1.3;letter-spacing:.02em}
+.ci .sub{font-family:var(--mono);font-size:0.6875rc;color:var(--smoke);letter-spacing:.07em;margin-top:3px}
+.qty{display:flex;align-items:center;gap:2px;margin-top:9px}
+.qty button{width:25px;height:25px;border:1px solid var(--line);color:var(--smoke);
+  display:grid;place-items:center;font-size:0.875rc;line-height:1}
+.qty button:hover{border-color:var(--gold-dim);color:var(--gold)}
+.qty b{width:32px;text-align:center;font-family:var(--mono);font-size:0.75rc;font-weight:400}
+.ci .pr{font-family:var(--serif);font-size:0.9375rc;color:var(--gold);text-align:right;flex:0 0 auto}
+.ci .rm{display:block;font-family:var(--mono);font-size:0.6562rc;color:var(--smoke);
+  letter-spacing:.09em;text-transform:uppercase;margin-top:8px}
+.ci .rm:hover{color:var(--bad)}
+.sums{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.sum{display:flex;justify-content:space-between;padding:5px 0;font-size:0.875rc;color:var(--bone)}
+.sum.tot{border-top:1px solid var(--line);margin-top:9px;padding-top:13px;
+  font-family:var(--serif);font-size:1.375rc;color:var(--bone)}
+.sum.tot b{color:var(--gold);font-weight:400}
+.gift{display:flex;gap:9px;align-items:center;font-size:0.7812rc;color:var(--ok);
+  border:1px dashed rgba(127,160,122,.45);border-radius:var(--r);padding:10px 13px;margin-top:13px}
+
+/* ---------- samples ---------- */
+.samp{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:12px;
+  max-height:270px;overflow-y:auto;padding-right:4px}
+.sc{border:1px solid var(--line);border-radius:var(--r);padding:10px 11px;text-align:left;
+  display:flex;gap:9px;align-items:center;transition:.2s}
+.sc:hover{border-color:var(--gold-dim)}
+.sc.on{border-color:var(--gold);background:rgba(201,169,106,.08)}
+.sc i{width:4px;height:26px;border-radius:2px;flex:0 0 4px}
+.sc div{min-width:0}
+.sc b{display:block;font-weight:400;font-size:0.825rc;line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc span{font-family:var(--mono);font-size:0.625rc;color:var(--smoke);letter-spacing:.08em}
+
+/* ---------- seal / confirmation ---------- */
+.seal{text-align:center;padding:26px 0 6px}
+.wax{width:118px;height:118px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 34% 30%,#3A2B22,#1A1310 72%);
+  border:1px solid var(--gold-dim);position:relative;
+  box-shadow:0 0 0 7px rgba(201,169,106,.06),0 16px 40px rgba(0,0,0,.6);
+  animation:stamp .7s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes stamp{0%{transform:scale(2.4) rotate(-14deg);opacity:0}
+  55%{transform:scale(.93) rotate(2deg);opacity:1}100%{transform:none;opacity:1}}
+.wax span{font-family:var(--serif);font-size:1.6875rc;color:var(--gold);letter-spacing:.08em}
+.code{font-family:var(--mono);font-weight:700;font-size:clamp(24px,7vw,36px);
+  letter-spacing:.16em;color:var(--gold);animation:fade .6s .45s both}
+.copy{font-family:var(--mono);font-size:0.625rc;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--smoke2);margin-top:10px;border-bottom:1px solid var(--line);padding-bottom:2px}
+.copy:hover{color:var(--gold);border-color:var(--gold-dim)}
+
+/* ---------- timeline ---------- */
+.tl{margin:26px 0 8px;position:relative;padding-left:34px}
+.tl::before{content:'';position:absolute;left:9px;top:10px;bottom:12px;width:1px;background:var(--line)}
+.st{position:relative;padding:0 0 26px}
+.st:last-child{padding-bottom:0}
+.st::before{content:'';position:absolute;left:-30px;top:5px;width:11px;height:11px;border-radius:50%;
+  background:var(--ink2);border:1px solid var(--line);z-index:2}
+.st.done::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,169,106,.14)}
+.st.now::before{background:var(--ink2);border-color:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,106,.4)}50%{box-shadow:0 0 0 8px rgba(201,169,106,0)}}
+.st b{font-family:var(--serif);font-weight:400;font-size:1.0312rc;letter-spacing:.04em;display:block}
+.st.done b,.st.now b{color:var(--bone)}
+.st b{color:var(--smoke2)}
+.st p{font-size:0.8625rc;color:var(--smoke);margin-top:4px}
+
+/* ---------- quiz ---------- */
+.quiz{max-width:660px;margin:0 auto;text-align:center}
+.qbar{height:1px;background:var(--line);margin:26px 0 34px;position:relative}
+.qbar i{position:absolute;inset:0 auto 0 0;background:var(--gold);transition:width .45s ease}
+.quiz h3{font-family:var(--serif);font-weight:400;font-size:clamp(22px,5vw,32px);
+  letter-spacing:.04em;line-height:1.3}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:30px}
+.opt{border:1px solid var(--line);border-radius:var(--r);padding:20px 15px;transition:.24s}
+.opt:hover{border-color:var(--gold);background:rgba(201,169,106,.06);transform:translateY(-2px)}
+.opt b{display:block;font-family:var(--serif);font-weight:400;font-size:1.0625rc;letter-spacing:.03em}
+.opt span{display:block;font-size:0.8125rc;color:var(--smoke);margin-top:6px}
+
+/* ---------- admin ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:26px}
+.stat{background:var(--ink);padding:17px 18px}
+.stat b{display:block;font-family:var(--serif);font-size:1.6875rc;color:var(--gold);letter-spacing:.03em}
+.stat span{font-family:var(--mono);font-size:0.6562rc;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--smoke)}
+.ord{border:1px solid var(--line);border-radius:var(--r);margin-bottom:12px;background:var(--ink2)}
+.ohead{display:flex;align-items:center;gap:13px;padding:14px 17px;flex-wrap:wrap;cursor:pointer}
+.ohead .c{font-family:var(--mono);font-weight:700;font-size:0.875rc;color:var(--gold);letter-spacing:.11em}
+.tag{font-family:var(--mono);font-size:0.625rc;letter-spacing:.11em;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;border:1px solid currentColor}
+.odetail{display:none;padding:0 17px 17px;border-top:1px solid var(--line)}
+.ord.open .odetail{display:block}
+.odetail .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:0.875rc;
+  border-bottom:1px solid var(--ink3)}
+.acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.sbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;
+  padding:12px 17px;border-top:1px solid var(--line);background:rgba(201,169,106,.04)}
+.sbar>.lb{font-family:var(--mono);font-size:0.625rc;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold-dim);margin-right:4px}
+.sbar button{padding:8px 13px;border:1px solid var(--line);border-radius:var(--r);
+  font-size:0.7375rc;letter-spacing:.09em;text-transform:uppercase;color:var(--smoke);transition:.2s}
+.sbar button:hover{border-color:var(--gold);color:var(--gold)}
+.sbar button.on{border-color:var(--gold);color:var(--ink);background:var(--gold)}
+.sbar button.no:hover{border-color:var(--bad);color:var(--bad)}
+.chev{margin-left:6px;color:var(--smoke2);font-size:0.6875rc;transition:transform .25s;display:inline-block}
+.ord.open .chev{transform:rotate(180deg)}
+.acts button{padding:8px 13px;border:1px solid var(--line);border-radius:var(--r);
+  font-size:0.7375rc;letter-spacing:.09em;text-transform:uppercase;color:var(--smoke)}
+.acts button:hover{border-color:var(--gold);color:var(--gold)}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--line);border-radius:var(--r);padding:15px 17px;margin-bottom:22px}
+.sw{width:46px;height:25px;border-radius:20px;background:var(--ink3);border:1px solid var(--line);
+  position:relative;flex:0 0 46px;transition:.25s}
+.sw i{position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;
+  background:var(--smoke2);transition:.25s}
+.sw.on{background:rgba(201,169,106,.22);border-color:var(--gold-dim)}
+.sw.on i{left:24px;background:var(--gold)}
+
+/* ---------- toast ---------- */
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);z-index:200;
+  background:var(--ink3);border:1px solid var(--gold-dim);border-radius:var(--r);
+  padding:13px 22px;font-size:0.8438rc;transition:transform .38s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 14px 40px rgba(0,0,0,.55);max-width:calc(100vw - 32px);text-align:center}
+#toast.on{transform:translate(-50%,0)}
+
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:38px var(--pad);
+  text-align:center;color:var(--smoke);font-size:0.825rc}
+footer .brand{font-size:0.875rc;margin-bottom:12px;display:inline-block}
+
+@media(max-width:900px){
+  .brand{font-size:.86rem;letter-spacing:.18em}
+  nav{margin-left:2px}
+  .hbtn{padding:8px 10px;gap:5px}
+  .hbtn span.lbl{display:none}
+  .filters{top:52px}
+  .gen{padding:8px 15px;font-size:.92rem}
+}
+@media(max-width:640px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .card{min-height:0;gap:9px}
+  .card h3{font-size:1rem}
+  .blot{min-height:58px;width:7px;flex:0 0 7px}
+  .fact{flex:1 1 42%;padding:13px 10px}
+  .facts{margin-top:34px}
+  .ghead h3{font-size:1.22rem;letter-spacing:.1em}
+  .sechead h2{font-size:1.5rem}
+  .samp{grid-template-columns:repeat(auto-fill,minmax(125px,1fr));max-height:230px}
+  .opts{grid-template-columns:1fr}
+  .tl{padding-left:28px}
+  .sheet.mid{top:auto;bottom:0;left:0;width:100%;max-height:92vh;
+    transform:translateY(100%);border-radius:10px 10px 0 0;border-bottom:none}
+  .sheet.mid.on{transform:none}
+  .sheet.right{width:100%;border-left:none}
+  .shead{padding:15px 17px}
+  .sbody{padding:17px}
+  .sfoot{padding:15px 17px;padding-bottom:max(15px,env(safe-area-inset-bottom))}
+  .lvl{flex-wrap:wrap;gap:6px 12px}
+  .lvl .k{flex:0 0 100%}
+  .lvl .w{display:none}
+  .ohead{gap:8px;padding:13px 14px}
+  .sbar{padding:11px 14px}
+  .sbar button{flex:1 1 auto}
+}
+@media(max-width:400px){
+  .grid{grid-template-columns:1fr}
+  .card{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .lvl{opacity:1;transform:none}
+  .pyr .w i{width:var(--pw,100%)}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+<div id="veil"></div>
+
+<header>
+  <div class="bar">
+    <button class="brand" onclick="go('shop')">MAISON <b>NOIR</b></button>
+    <nav id="nav"></nav>
+    <button class="hbtn" onclick="openTrack()" title="Bestellung verfolgen">◇ <span class="lbl">Verfolgen</span></button>
+    <button class="hbtn" id="accBtn" onclick="accountClick()">◎ <span class="lbl">Konto</span></button>
+    <button class="hbtn gold" onclick="openCart()">▣ <span class="lbl">Warenkorb</span> <span class="pill" id="cartN">0</span></button>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <div class="eyebrow">Parfümerie · Essence Extract 30 %</div>
+  <h1>MAISON<span>NOIR</span></h1>
+  <div class="rule"></div>
+  <p>Hochkonzentrierte Duftessenzen aus französischer Herstellung. Jeder Duft trägt eine Nummer — nach ihr wird bestellt, nach ihr wird abgeholt.</p>
+  <div class="heroActs">
+    <button class="btn solid" onclick="go('shop');scrollToGrid()">Kollektion ansehen</button>
+    <button class="btn" onclick="go('quiz')">Duft-Finder starten</button>
+  </div>
+  <div class="facts">
+    <div class="fact"><b>30 %</b><span>Essenz-Anteil</span></div>
+    <div class="fact"><b>8–10 h</b><span>Haltbarkeit</span></div>
+    <div class="fact"><b id="fCount">0</b><span>Düfte</span></div>
+    <div class="fact"><b>Bar</b><span>Zahlung bei Übergabe</span></div>
+  </div>
+</section>
+
+<main>
+  <!-- SHOP -->
+  <div class="view on" id="v-shop">
+    <div class="filters">
+      <div class="gens" id="gens"></div>
+      <div class="cats" id="cats"></div>
+      <div class="frow">
+        <div class="search">
+          <span class="muted tiny">⌕</span>
+          <input id="q" placeholder="Nummer, Name oder Duftnote suchen …" oninput="render()">
+        </div>
+        <select class="sel" id="fam" onchange="render()"></select>
+        <select class="sel" id="sort" onchange="render()">
+          <option value="nr">Nach Nummer</option>
+          <option value="az">Alphabetisch</option>
+          <option value="lo">Preis aufsteigend</option>
+          <option value="hi">Preis absteigend</option>
+        </select>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="view" id="v-quiz"><div class="quiz" id="quizBox"></div></div>
+
+  <!-- TRACK -->
+  <div class="view" id="v-track">
+    <div class="sechead"><h2>Bestellung verfolgen</h2></div>
+    <div style="max-width:520px">
+      <p class="muted" style="margin-bottom:20px">Gib deinen Duft-Code ein — du hast ihn beim Abschluss der Bestellung erhalten.</p>
+      <label class="f"><span>Duft-Code</span>
+        <input class="inp" id="tCode" placeholder="z. B. AMBRE-7742" style="font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase">
+      </label>
+      <button class="btn solid" onclick="findOrder()">Status anzeigen</button>
+      <div class="err" id="tErr"></div>
+      <div id="tOut"></div>
+    </div>
+  </div>
+
+  <!-- MEINE BESTELLUNGEN -->
+  <div class="view" id="v-mine">
+    <div class="sechead"><h2>Meine Bestellungen</h2></div>
+    <div id="mineOut"></div>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="view" id="v-admin">
+    <div class="sechead"><h2>Bestellungen verwalten</h2>
+      <span class="eyebrow" id="adminWho"></span></div>
+    <div class="stats" id="stats"></div>
+    <div class="toggle">
+      <div>
+        <b class="serif" style="font-size:16px">Markenreferenzen anzeigen</b>
+        <div class="tiny muted" style="margin-top:4px">Zeigt „inspiriert von …" auf Produktkarten. Aus Gründen des Markenrechts standardmäßig aus.</div>
+      </div>
+      <button class="sw" id="brandSw" onclick="toggleBrands()"><i></i></button>
+    </div>
+    <div class="frow" style="margin-bottom:18px">
+      <div class="search" style="flex:1 1 220px">
+        <span class="muted tiny">⌕</span>
+        <input id="aq" placeholder="Code, Name oder Telefon …" oninput="renderAdmin()">
+      </div>
+      <select class="sel" id="afil" onchange="renderAdmin()">
+        <option value="">Alle Status</option>
+        <option value="neu">Eingegangen</option>
+        <option value="kuratiert">Wird kuratiert</option>
+        <option value="bereit">Bereit</option>
+        <option value="fertig">Bezahlt &amp; übergeben</option>
+        <option value="storno">Storniert</option>
+      </select>
+    </div>
+    <div id="adminOut"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="brand serif">MAISON <b style="color:var(--gold)">NOIR</b></div>
+  <div>Zahlung bar bei Abholung oder Lieferung · Keine Online-Transaktion</div>
+  <div style="margin-top:8px;font-size:11px;opacity:.7">Bestellungen und Konten werden sicher bei Supabase gespeichert.</div>
+</footer>
+
+<div class="scrim" id="scrim" onclick="closeAll()"></div>
+
+<!-- PRODUKT -->
+<div class="sheet mid" id="pSheet">
+  <div class="shead"><h3 id="pTitle">—</h3><button class="x" onclick="closeAll()">✕</button></div>
+  <div class="sbody" id="pBody"></div>
+  <div class="sfoot"><button class="btn solid" style="width:100%" id="pAdd">In den Warenkorb</button></div>
+</div>
+
+<!-- WARENKORB -->
+<div class="sheet right" id="cSheet">
+  <div class="shead"><h3>Warenkorb</h3><button class="x" onclick="closeAll()">✕</button></div>
+  <div class="sbody" id="cBody"></div>
+  <div class="sfoot" id="cFoot"></div>
+</div>
+
+<!-- CHECKOUT / AUTH / BESTÄTIGUNG -->
+<div class="sheet mid" id="mSheet">
+  <div class="shead"><h3 id="mTitle">—</h3><button class="x" onclick="closeAll()">✕</button></div>
+  <div class="sbody" id="mBody"></div>
+  <div class="sfoot" id="mFoot"></div>
+</div>
+
+<div id="toast"></div>
+
+
+
+
+<script>
+/* ============ DUFTFAMILIEN ============ */
+const FAM={
+ blumig:['Blumig','#C9899E'], orient:['Orientalisch','#C9924F'], holzig:['Holzig','#9A7B55'],
+ frisch:['Frisch','#7FA8A0'], gourmand:['Gourmand','#BE8A62'], fougere:['Fougère','#8CA06F'],
+ chypre:['Chypre','#A89066'], leder:['Leder','#A5705A'], aqua:['Aquatisch','#7C9EC2'],
+ zitrus:['Zitrisch','#C9BE6A'], pudrig:['Pudrig','#B6A8B4'], oud:['Oud & Harz','#8B6A72']
+};
+
+/* [nr, name, inspiriert-von, geschlecht, familie, kopf, herz, basis, p30, p70] */
+const D_DAME=[
+[6,'Opium','YSL','d','orient','Mandarine, Nelke, Koriander','Rose, Jasmin, Maiglöckchen','Myrrhe, Opoponax, Vanille, Patchouli'],
+[7,'J\u2019adore','Dior','d','blumig','Birne, Melone, Magnolie','Rose, Pflaume, Veilchen','Moschus, Zeder, Vanille'],
+[10,'Alien','Thierry Mugler','d','orient','Jasmin','Sambac-Jasmin, Cashmeran','Weißer Amber, Holznoten'],
+[11,'Light Blue','D&G','d','frisch','Zitrone, Apfel, Zeder','Bambus, Jasmin, weiße Rose','Zeder, Amber, Moschus'],
+[13,'Guilty','Gucci','d','blumig','Mandarine, rosa Pfeffer','Pfirsich, Lilie','Patchouli, Amber'],
+[14,'Manifesto','YSL','d','gourmand','Bergamotte, schwarze Johannisbeere','Jasmin, Tuberose','Vanille, Tonkabohne, Zeder'],
+[19,'Lady Million','Paco Rabanne','d','blumig','Orange, Himbeere, Neroli','Jasmin, Orangenblüte, Gardenie','Patchouli, Honig, Amber'],
+[23,'Hypnotic Poison','Dior','d','orient','Bittermandel, Kümmel','Jasmin, Maiglöckchen','Vanille, Moschus, Sandelholz'],
+[24,'N\u00b05','Chanel','d','blumig','Aldehyde, Ylang-Ylang, Neroli','Jasmin, Rose, Iris','Sandelholz, Vetiver, Vanille'],
+[25,'For Her','Narciso Rodriguez','d','chypre','Orangenblüte, Osmanthus','Moschus, Amber','Vetiver, Patchouli, Vanille'],
+[26,'Flower','Kenzo','d','pudrig','Mandarine, schwarze Johannisbeere','Veilchen, Rose, Hibiskus','Vanille, weißer Moschus'],
+[27,'Trésor','Lancôme','d','blumig','Aprikosenblüte, Flieder','Rose, Iris, Heliotrop','Sandelholz, Vanille, Amber'],
+[28,'Angel','Thierry Mugler','d','gourmand','Bergamotte, Melone','Honig, rote Beeren, Karamell','Patchouli, Vanille, Schokolade'],
+[29,'L\u2019Eau d\u2019Issey','Issey Miyake','d','aqua','Lotus, Melone, Rose','Pfingstrose, Maiglöckchen','Zeder, Moschus, Osmanthus'],
+[39,'Miss Dior Chérie','Dior','d','blumig','Mandarine, Erdbeere','Popcorn, Jasmin','Patchouli, Moschus'],
+[40,'Hypnôse','Lancôme','d','orient','Passionsblume','Jasmin, Gardenie','Vanille, Vetiver, Sandelholz'],
+[41,'Chloé','Chloé','d','pudrig','Pfingstrose, Litschi, Freesie','Rose, Magnolie, Maiglöckchen','Zeder, Amber, Honig'],
+[42,'La Vie Est Belle','Lancôme','d','gourmand','Schwarze Johannisbeere, Birne','Iris, Jasmin, Orangenblüte','Praline, Vanille, Patchouli'],
+[43,'Love','Chloé','d','pudrig','Puderige Iris, Hyazinthe','Veilchen, Reisnote','Moschus, Zedernholz'],
+[47,'Crystal Noir','Versace','d','orient','Pfeffer, Ingwer','Gardenie, Kokos, Pfingstrose','Sandelholz, Amber, Moschus'],
+[49,'Dolce','D&G','d','blumig','Neroli, Papaya','Amaryllis, Narzisse, Seerose','Kaschmirholz, Moschus'],
+[51,'Coco Mademoiselle','Chanel','d','chypre','Orange, Bergamotte','Rose, Jasmin, Litschi','Patchouli, Vetiver, Vanille'],
+[53,'Narciso','Narciso Rodriguez','d','pudrig','Rose, Gardenie','Moschus, Zeder','Vetiver, Amber'],
+[55,'Black Opium','YSL','d','gourmand','Rosa Pfeffer, Orangenblüte','Kaffee, Jasmin','Vanille, Patchouli, Zeder'],
+[56,'Ange ou Démon','Givenchy','d','orient','Safran, Mandarine','Lilie, Orchidee, Thymian','Tonkabohne, Vanille, Eichenmoos'],
+[57,'Omnia Améthyste','Bvlgari','d','blumig','Grüne Blätter, Bergamotte','Iris, Rose','Holznoten, Moschus'],
+[63,'Hugo Woman','Hugo Boss','d','frisch','Apfel, Mandarine, Melone','Jasmin, Freesie','Sandelholz, Moschus'],
+[64,'Omnia Indian Garnet','Bvlgari','d','orient','Bergamotte, Nelke','Rose, Granatapfel','Amber, Sandelholz, Tonkabohne'],
+[67,'Olympéa','Paco Rabanne','d','gourmand','Grüne Mandarine, Wasserjasmin','Salzige Vanille, Orangenblüte','Kaschmirholz, Amber, Sandelholz'],
+[70,'The One','D&G','d','orient','Litschi, Bergamotte, Mandarine','Pflaume, Lilie, Jasmin','Vanille, Amber, Moschus'],
+[71,'Allure','Chanel','d','blumig','Mandarine, Pfirsich','Rose, Jasmin, Maiglöckchen','Vanille, Vetiver, Sandelholz'],
+[76,'Acqua di Gioia','Armani','d','frisch','Zitrone, Minze','Jasmin, Pfingstrose','Zedernholz, brauner Zucker, Labdanum'],
+[77,'Flora','Gucci','d','blumig','Mandarine, Pfingstrose','Rose, Osmanthus','Sandelholz, Patchouli'],
+[80,'Sì','Armani','d','chypre','Schwarze Johannisbeere, Mandarine','Rose, Freesie','Vanille, Patchouli, Amberholz'],
+[81,'Classique Essence','Jean Paul Gaultier','d','orient','Birne, Bergamotte','Rose, Orangenblüte','Vanille, Sandelholz, Moschus'],
+[82,'Signorina','Salvatore Ferragamo','d','blumig','Johannisbeere, rosa Pfeffer','Jasmin, Pfingstrose','Panna Cotta, Patchouli, Moschus'],
+[85,'Chance','Chanel','d','blumig','Rosa Pfeffer, Zitrone','Jasmin, Hyazinthe, Iris','Patchouli, Vetiver, weißer Moschus'],
+[89,'Mon Paris','YSL','d','chypre','Erdbeere, Himbeere, Birne','Jasmin, Orangenblüte, Pfingstrose','Patchouli, Moschus, Amber'],
+[90,'Poison Girl','Dior','d','gourmand','Bitterorange, sizilianische Zitrone','Rose, Orangenblüte','Vanille, Tonkabohne, Mandel'],
+[93,'Aventus for Her','Creed','d','chypre','Grüner Apfel, Johannisbeere, Bergamotte','Rose, Sambac-Jasmin','Patchouli, Sandelholz, Moschus',29.5,57],
+[95,'Burberry for Women','Burberry','d','blumig','Pfirsich, grüner Apfel','Pfingstrose, Jasmin','Vanille, Sandelholz, Moschus'],
+[96,'Gabrielle','Chanel','d','blumig','Grapefruit, Mandarine','Orangenblüte, Jasmin, Tuberose','Sandelholz, Moschus'],
+[97,'Amo Ferragamo','Salvatore Ferragamo','d','gourmand','Rosa Pfeffer, Bergamotte','Jasmin, Rose','Vanille, Tonkabohne, Sandelholz'],
+[98,'Joy','Dior','d','blumig','Bergamotte, Mandarine','Jasmin, Rose, Pfirsich','Sandelholz, Moschus, Amberholz'],
+[115,'Idôle','Lancôme','d','chypre','Bergamotte, Birne','Rose, Jasmin','Weißer Moschus, Vanille, Papyrus'],
+[116,'Yes I Am','Cacharel','d','orient','Ingwer, Neroli','Jasmin, Rose','Vanille, Moschus, Amber'],
+[119,'Scandal','Jean Paul Gaultier','d','gourmand','Blutorange, Mandarine','Honig, Gardenie, Orangenblüte','Karamell, Patchouli, Lakritz'],
+[120,'La Petite Robe Noire','Guerlain','d','gourmand','Schwarzkirsche, Mandel','Rose, Lakritz','Schwarzer Tee, Vanille, Tonkabohne'],
+[121,'L\u2019Interdit','Givenchy','d','blumig','Birne, Orangenblüte','Tuberose, Jasmin','Vetiver, Patchouli, Vanille'],
+[122,'Libre','YSL','d','blumig','Lavendel, Mandarine, Johannisbeere','Orangenblüte, Jasmin','Vanille, Moschus, Zeder',25.5,48],
+[131,'Good Girl','Carolina Herrera','d','gourmand','Mandel, Kaffee','Tuberose, Jasmin','Kakao, Tonkabohne, Vanille',25.5,48],
+[132,'My Way','Armani','d','blumig','Orangenblüte, Bergamotte','Tuberose, Jasmin','Vanille, Zeder, weißer Moschus',23.5,45],
+[133,'Paradoxe','Prada','d','blumig','Bergamotte, Neroli','Jasmin','Amber, Moschus']
+];
+
+const D_HERR=[
+[1,'One Million','Paco Rabanne','h','leder','Blutorange, Grapefruit, Minze','Zimt, Rose, Gewürznelke','Leder, Amber, Patchouli'],
+[2,'Acqua di Giò','Giorgio Armani','h','aqua','Bergamotte, Neroli, Limette','Jasmin, Rosmarin, Meeresnoten','Patchouli, Zeder, Moschus'],
+[3,'Fahrenheit','Dior','h','leder','Mandarine, Weißdorn, Muskatnuss','Veilchen, Zimt, Sandelholz','Leder, Vetiver, Tonkabohne'],
+[4,'The One','D&G','h','orient','Grapefruit, Koriander, Basilikum','Ingwer, Kardamom, Orangenblüte','Amber, Zeder, Tabak'],
+[5,'Hugo','Hugo Boss','h','fougere','Grüner Apfel, Grapefruit, Minze','Tanne, Salbei, Nelke','Zeder, Patchouli, Vetiver'],
+[12,'Eau Sauvage','Dior','h','zitrus','Zitrone, Bergamotte, Basilikum','Rosmarin, Jasmin, Koriander','Vetiver, Eichenmoos, Moschus'],
+[15,'Roma Uomo','Laura Biagiotti','h','fougere','Bergamotte, Zitrone, Minze','Lavendel, Zimt, Nelke','Tonkabohne, Vanille, Amber'],
+[16,'Le Male','Jean Paul Gaultier','h','fougere','Minze, Lavendel, Bergamotte','Zimt, Kümmel, Orangenblüte','Vanille, Tonkabohne, Sandelholz'],
+[17,'Guilty','Gucci','h','fougere','Rosa Pfeffer, Zitrone','Lavendel, Orangenblüte','Patchouli, Zeder'],
+[18,'Déclaration','Cartier','h','holzig','Bergamotte, Kümmel, Koriander','Ingwer, Kardamom, Wacholder','Zeder, Vetiver, Amber'],
+[20,'La Nuit de l\u2019Homme','YSL','h','holzig','Kardamom','Lavendel, Zeder','Vetiver, Tonkabohne'],
+[21,'Light Blue pour Homme','D&G','h','zitrus','Grapefruit, Mandarine, Wacholder','Rosmarin, Pfeffer, Palisander','Moschus, Weihrauch, Eichenmoos'],
+[22,'Terre d\u2019Hermès','Hermès','h','holzig','Orange, Grapefruit','Pfeffer, Pelargonie','Vetiver, Zeder, Benzoe'],
+[30,'Black XS','Paco Rabanne','h','holzig','Tamarinde, Zitrone, Kalamansi','Praline, Salbei, Kardamom','Patchouli, Amber, Vetiver'],
+[31,'BLV pour Homme','Bvlgari','h','holzig','Ingwer, Kardamom, Muskatnuss','Tabakblatt, Zeder','Sandelholz, Amber, Patchouli'],
+[32,'Spicebomb','Viktor & Rolf','h','orient','Bergamotte, rosa Pfeffer, Grapefruit','Zimt, Safran, Paprika','Tabak, Leder, Vetiver'],
+[33,'Armani Code','Armani','h','orient','Bergamotte, Zitrone, Anis','Olivenblüte, Tonkabohne','Leder, Tabak, Holznoten'],
+[37,'Bvlgari Man','Bvlgari','h','holzig','Violettblätter, Birne','Kaschmirholz, Kardamom','Amber, Benzoe, Moschus'],
+[38,'Bleu','Chanel','h','holzig','Zitrone, Grapefruit, Minze','Ingwer, Muskatnuss, Jasmin','Weihrauch, Zeder, Sandelholz'],
+[48,'Allure Homme','Chanel','h','orient','Zitrone, Mandarine, Bergamotte','Pfeffer, Vetiver, Zeder','Tonkabohne, Vanille, Patchouli'],
+[50,'Burberry for Men','Burberry','h','fougere','Bergamotte, Lavendel, Zitrone','Zimt, Muskatnuss, Sandelholz','Zeder, Vetiver, Moschus'],
+[52,'Pasha','Cartier','h','fougere','Lavendel, Minze, Anis','Koriander, Kümmel','Sandelholz, Patchouli, Eichenmoos'],
+[60,'Millésime Impérial','Creed','h','aqua','Bergamotte, Zitrone, Meeresnoten','Iris, Wassermelone','Moschus, Sandelholz, Amber',25.5,48],
+[61,'Invictus','Paco Rabanne','h','aqua','Grapefruit, Meeresnoten, Mandarine','Lorbeer, Jasmin','Amber, Eichenmoos, Patchouli'],
+[62,'Intenso','D&G','h','orient','Lavendel, Basilikum, Wasserminze','Nelke, Immortelle, Moschus','Tabak, Zeder, Amber'],
+[65,'The Scent','Hugo Boss','h','leder','Ingwer, Mandarine','Maninka-Frucht, Lavendel','Leder, Amber'],
+[66,'Scent Intense','Costume National','h','orient','Zimt, Nelke, Kardamom','Weihrauch, Rose','Amber, Vanille, Sandelholz'],
+[68,'Aventus','Creed','h','chypre','Ananas, Bergamotte, Johannisbeere, Apfel','Birkenholz, Patchouli, Jasmin','Moschus, Eichenmoos, Ambra, Vanille',29.5,57],
+[78,'Ultraviolet','Paco Rabanne','h','holzig','Amber, Bergamotte','Rose, Vanille','Sandelholz, Moschus, Zeder'],
+[83,'Uomo','Roberto Cavalli','h','orient','Bergamotte, Salbei','Orangenblüte, Zimt','Tonkabohne, Vanille, Amberholz'],
+[84,'Dylan Blue','Versace','h','aqua','Bergamotte, Grapefruit, Feigenblatt','Papyrus, Veilchenblatt, schwarzer Pfeffer','Moschus, Patchouli, Tonkabohne'],
+[86,'Legend','Mont Blanc','h','fougere','Lavendel, Ananasblatt, Bergamotte','Apfel, Rose, Salbei','Sandelholz, Tonkabohne, Eichenmoos'],
+[87,'Wanted','Azzaro','h','holzig','Zitrone, Ingwer, Wacholder','Kardamom, Lavendel, Minze','Tonkabohne, Vetiver, Zeder'],
+[88,'Man in Black','Bvlgari','h','orient','Rum, Gewürznelke','Leder, Tuberose, Iris','Benzoe, Guajakholz, Tonkabohne'],
+[91,'Chrome','Azzaro','h','zitrus','Zitrone, Bergamotte, Ananas','Jasmin, Koriander, Rosmarin','Moschus, Sandelholz, Eichenmoos'],
+[92,'Mr. Burberry','Burberry','h','holzig','Kardamom, Grapefruit, Estragon','Zeder, Muskatellersalbei, Birkenblatt','Vetiver, Sandelholz, Guajak'],
+[94,'Sauvage','Dior','h','frisch','Kalabrische Bergamotte, Pfeffer','Sichuanpfeffer, Lavendel, Geranie','Ambroxan, Zeder, Labdanum',25.5,48],
+[108,'Green Irish Tweed','Creed','h','frisch','Zitrone, Verbene','Iris, Veilchenblätter','Sandelholz, Ambra',25.5,48],
+[113,'Sur la Route','Louis Vuitton','h','holzig','Bergamotte, Grapefruit, Mandarine','Zeder, Patchouli','Vetiver, Moschus',29.5,57],
+[136,'Homme Intense','Dior','h','pudrig','Lavendel, Bergamotte','Iris, Ambrette','Vetiver, Leder, Vanille',23.5,45],
+[140,'Eros','Versace','h','fougere','Minze, grüner Apfel, Zitrone','Tonkabohne, Ambroxan, Geranie','Vanille, Vetiver, Zeder, Eichenmoos']
+];
+
+const D_UNI=[
+[44,'Silver Mountain Water','Creed','u','frisch','Bergamotte, Mandarine','Grüner Tee, schwarze Johannisbeere','Sandelholz, Moschus, Ambra',25.5,48],
+[46,'CK One','Calvin Klein','u','zitrus','Ananas, Mandarine, Bergamotte, Kardamom','Muskatnuss, Veilchen, Rose, Jasmin','Sandelholz, Amber, Moschus, Zeder'],
+[54,'Black Orchid','Tom Ford','u','orient','Trüffel, Ylang-Ylang, Johannisbeere, Bergamotte','Schwarze Orchidee, Lotus, Gewürze','Patchouli, Vanille, Sandelholz, Vetiver'],
+[72,'Patchouli','Reminiscence','u','holzig','Bergamotte, Zitrusnoten','Patchouli, Gewürznelke','Vanille, Amber, Sandelholz',18.5,35],
+[73,'Himalaya','Creed','u','holzig','Grapefruit, Bergamotte, Zitrone','Muskatnuss, Zeder, Sandelholz','Ambra, Moschus, Vetiver',25.5,48],
+[99,'Mandarino di Amalfi','Tom Ford','u','zitrus','Mandarine, Zitrone, Bergamotte','Grapefruitblüte, Jasmin, Basilikum','Amberholz, Moschus, Honig',23.5,45],
+[100,'White Aoud','Montale','u','oud','Rose, Safran','Oud, Sandelholz','Amber, Moschus, Patchouli'],
+[105,'Intense Café','Montale','u','gourmand','Kaffee, Rose','Vanille, Amber','Weißer Moschus, Holznoten'],
+[110,'Kirke','Tiziana Terenzi','u','gourmand','Passionsfrucht, Pfirsich, Johannisbeere','Pfingstrose, Heliotrop','Moschus, Sandelholz, Vanille',25.5,48],
+[114,'Ombre Nomade','Louis Vuitton','u','oud','Himbeere, Weihrauch','Oud, Rose','Birkenholz, Amber, Benzoe',25.5,48],
+[135,'Bois d\u2019Argent','Christian Dior','u','pudrig','Iris, Bergamotte','Weihrauch, Honig, Mimose','Sandelholz, Amber, Leder',29.5,57],
+[142,'Ombré Leather','Tom Ford','u','leder','Kardamom','Leder, Sambac-Jasmin','Amber, Patchouli, Moschus',29.5,57]
+];
+
+/* Luxury Line — nur 50 ml */
+const D_LUX=[
+[74,'Black Afgano','Nasomatto','h','oud','Grüne Noten, Harze','Oud, Kaffee, Tabak','Räucherharz, Vanille, Holznoten',52],
+[75,'X for Men','Clive Christian','h','holzig','Muskatnuss, Kardamom, Bergamotte','Iris, Zeder, Rose','Vetiver, Moschus, Amber',52],
+[101,'Velvet Amber Skin','D&G','u','orient','Ambrette, Bergamotte','Amber, Weihrauch, Rose','Sandelholz, Moschus, Vanille',52],
+[102,'Velvet Amber Sun','D&G','u','orient','Zitrone, Neroli','Amber, Orangenblüte','Vanille, Moschus, Benzoe',52],
+[106,'F*cking Fabulous','Tom Ford','u','leder','Lavendel, Bittermandel, Muskatellersalbei','Leder, weiße Blüten','Tonkabohne, Vanille, Kaschmirholz',52],
+[109,'J\u2019adore L\u2019Or','Dior','d','blumig','Orangenblüte','Rose, Jasmin, Tuberose','Vanille, Sandelholz, Moschus',52],
+[111,'Lost Cherry','Tom Ford','u','gourmand','Schwarzkirsche, Bittermandel, Likör','Türkische Rose, Jasmin','Tonkabohne, Vetiver, Sandelholz, Zeder',52],
+[112,'Neroli Portofino','Tom Ford','u','zitrus','Bergamotte, Mandarine, Zitrone','Neroli, Orangenblüte, Lavendel','Amber, Moschus, Ambrette',52],
+[117,'Tobacco Vanille','Tom Ford','u','orient','Tabakblatt, Gewürze','Vanille, Kakao, Tonkabohne','Trockenfrüchte, Holznoten',52],
+[118,'Baccarat Rouge 540','Maison Francis Kurkdjian','u','orient','Safran, Bittermandel','Zedernholz, Ambroxan','Fichtenharz, Amber, Moschus',52],
+[123,'Good Girl Gone Bad','Kilian','d','blumig','Pfirsich, Aprikose','Tuberose, Jasmin, Osmanthus, Rose, Narzisse','Zeder, Amber, Moschus',52],
+[124,'Zeta Morph','','u','holzig','Bergamotte, rosa Pfeffer','Iris, Amberholz','Moschus, Vetiver, Vanille',52],
+[125,'Sole di Positano','Tom Ford','u','zitrus','Zitrone, Bergamotte, Mandarine','Orangenblüte, Basilikum, Petitgrain','Zedernholz, Moschus, Rosmarin',52],
+[126,'Soleil Blanc','Tom Ford','u','orient','Bergamotte, Kardamom, Pistazie','Tuberose, Ylang-Ylang, Jasmin','Kokos, Amber, Benzoe',52],
+[127,'Oud Wood','Tom Ford','u','oud','Oud, Palisander, Kardamom','Sandelholz, Vetiver','Tonkabohne, Vanille, Amber',52],
+[128,'Vanille Fatale','Tom Ford','u','gourmand','Bergamotte, Gewürze','Vanille, Weihrauch, Rose','Sandelholz, Tonkabohne, Moschus',52],
+[129,'Erba Pura','Xerjoff','u','zitrus','Sizilianische Orange, Zitrone, Bergamotte','Exotische Früchte','Weißer Moschus, Amber, Vanille',52],
+[130,'Megamare','Orto Parisi','u','aqua','Salzige Meeresluft, Algen','Ambra, Seetang','Moschus, Holznoten',65],
+[134,'Bitter Peach','Tom Ford','u','gourmand','Pfirsich, Blutorange, Kardamom','Rum, Jasmin, Sandelholz','Vanille, Tonkabohne, Patchouli',52],
+[137,'Naxos','Xerjoff','u','gourmand','Lavendel, Bergamotte, Zitrone','Honig, Tabak, Zimt, Jasmin','Tonkabohne, Vanille, Cashmeran',52],
+[138,'Wood Whisper','Ojar','u','holzig','Bergamotte, Gewürze','Zeder, Oud','Sandelholz, Amber, Moschus',52],
+[139,'Les Sables Roses','Louis Vuitton','u','oud','Safran, Bergamotte','Damaszener Rose, Oud','Amber, Weihrauch, Papyrus',65],
+[141,'Turath','The Spirit of Dubai','u','oud','Safran, Gewürze','Oud, Rose','Amber, Sandelholz, Moschus',65],
+[143,'Vanilla Powder','Matière Première','u','gourmand','Bergamotte, rosa Pfeffer','Vanille, Tonkabohne','Sandelholz, Moschus, Benzoe',52]
+];
+
+/* Event — 50 ml */
+const D_EVENT=[
+['EVENT22','Event 22','','u','holzig','Bergamotte, Kardamom','Amberholz, Iris','Vetiver, Moschus, Vanille',60],
+['EVENT23W','Édition Paris — Femme','','d','chypre','Bergamotte, Birne','Rose, Jasmin','Patchouli, Moschus, Amber',60],
+['EVENT23M','Édition Paris — Homme','','h','holzig','Grapefruit, Pfeffer','Zeder, Lavendel','Vetiver, Amber, Tonkabohne',60],
+['ASTRAL24','Astral 24 — Futur','','u','orient','Rosa Pfeffer, Mandarine','Weihrauch, Amberholz','Vanille, Moschus, Benzoe',60],
+['MULTIVERSE','Multiverse — Futur','','u','holzig','Bergamotte, Ingwer','Zeder, Ambroxan','Moschus, Patchouli, Vanille',60]
+];
+
+/* Kinder — 30 ml, 20 % Essenz, hypoallergen */
+const D_KIND=[
+[45,'Parfum für Jungen','','k','frisch','Mandarine, Apfel','Maiglöckchen, Kamille','Weißer Moschus, Vanille',29],
+[58,'Parfum für Mädchen','','k','blumig','Birne, Zitrusnoten','Rose, Pfingstrose','Vanille, weißer Moschus',29],
+[59,'Babyparfum','','k','pudrig','Bergamotte, Mandarine','Kamille, Maiglöckchen','Puderiger Moschus, Vanille',29]
+];
+
+/* Duschgel 250 ml */
+const D_GEL=[
+['BSF001','One Million','Paco Rabanne','h','leder',15.9],['BSF002','Acqua di Giò','Giorgio Armani','h','aqua',15.9],
+['BSF003','Fahrenheit','Dior','h','leder',15.9],['BSF005','Hugo','Hugo Boss','h','fougere',15.9],
+['BSF016','Le Male','Jean Paul Gaultier','h','fougere',15.9],['BSF020','La Nuit de l\u2019Homme','YSL','h','holzig',15.9],
+['BSF033','Armani Code','Armani','h','orient',15.9],['BSF061','Invictus','Paco Rabanne','h','aqua',15.9],
+['BSF068','Aventus','Creed','h','chypre',15.9],['BSF094','Sauvage','Dior','h','frisch',15.9],
+['BSF007','J\u2019adore','Dior','d','blumig',15.9],['BSF010','Alien','Thierry Mugler','d','orient',15.9],
+['BSF019','Lady Million','Paco Rabanne','d','blumig',15.9],['BSF023','Hypnotic Poison','Dior','d','orient',15.9],
+['BSF042','La Vie Est Belle','Lancôme','d','gourmand',15.9],['BSF051','Coco Mademoiselle','Chanel','d','chypre',15.9],
+['BSF055','Black Opium','YSL','d','gourmand',15.9],['BSF080','Sì','Armani','d','chypre',15.9],
+['BSF119','Scandal','Jean Paul Gaultier','d','gourmand',15.9],['BSF121','L\u2019Interdit','Givenchy','d','blumig',15.9],
+['BSF105','Intense Café','Montale','u','gourmand',15.9],
+['BSF111','Lost Cherry','Tom Ford','u','gourmand',18.9],['BSF118','Baccarat Rouge 540','Maison Francis Kurkdjian','u','orient',18.9],
+['BSF129','Erba Pura','Xerjoff','u','zitrus',18.9],['BSF134','Bitter Peach','Tom Ford','u','gourmand',18.9],
+['BSF130','Megamare','Orto Parisi','u','aqua',24.9]
+];
+
+/* Bodylotion 150 ml mit Arganöl */
+const D_LOT=[
+['CRF007','J\u2019adore','Dior','d','blumig',17.9],['CRF010','Alien','Thierry Mugler','d','orient',17.9],
+['CRF019','Lady Million','Paco Rabanne','d','blumig',17.9],['CRF023','Hypnotic Poison','Dior','d','orient',17.9],
+['CRF042','La Vie Est Belle','Lancôme','d','gourmand',17.9],['CRF051','Coco Mademoiselle','Chanel','d','chypre',17.9],
+['CRF055','Black Opium','YSL','d','gourmand',17.9],['CRF080','Sì','Armani','d','chypre',17.9],
+['CRF119','Scandal','Jean Paul Gaultier','d','gourmand',17.9],['CRF121','L\u2019Interdit','Givenchy','d','blumig',17.9],
+['CRF074','Black Afgano','Nasomatto','u','oud',22]
+];
+
+/* ============ AUFBAU DES KATALOGS ============ */
+const P=[];
+function add(o){P.push(o)}
+function mkParf(a,line){
+  const [nr,name,brand,g,fam,t,h,b]=a;
+  let sizes;
+  if(line==='lux'||line==='event'){ sizes=[{ml:50,pr:a[8]}]; }
+  else if(line==='kind'){ sizes=[{ml:30,pr:a[8]}]; }
+  else { sizes=[{ml:30,pr:a[8]||18},{ml:70,pr:a[9]||35}]; }
+  add({id:line+'-'+nr,nr:String(nr),name,brand,g,fam,line,kind:'parfum',
+       notes:{t,h,b},sizes,ess:line==='kind'?20:30});
+}
+D_DAME.forEach(a=>mkParf(a,'dame'));
+D_HERR.forEach(a=>mkParf(a,'herr'));
+D_UNI.forEach(a=>mkParf(a,'uni'));
+D_LUX.forEach(a=>mkParf(a,'lux'));
+D_EVENT.forEach(a=>mkParf(a,'event'));
+D_KIND.forEach(a=>mkParf(a,'kind'));
+
+/* Sondergröße aus der Preisliste: Nr. 69 in 35 ml / 100 ml */
+add({id:'herr-69',nr:'69',name:'Acqua di Sale',brand:'Profumo di Roma',g:'h',fam:'aqua',line:'herr',kind:'parfum',
+  notes:{t:'Meeresnoten, Zitrone',h:'Myrte, Rosmarin',b:'Zeder, Moschus, Ambra'},
+  sizes:[{ml:35,pr:15.5},{ml:100,pr:30}],ess:30});
+
+D_GEL.forEach(([nr,name,brand,g,fam,pr])=>add({id:'gel-'+nr,nr,name,brand,g,fam,line:'gel',kind:'gel',
+  notes:null,sizes:[{ml:250,pr}],ess:0}));
+D_LOT.forEach(([nr,name,brand,g,fam,pr])=>add({id:'lot-'+nr,nr,name,brand,g,fam,line:'lot',kind:'lot',
+  notes:null,sizes:[{ml:150,pr}],ess:0}));
+
+add({id:'acc-etui',nr:'ETUI',name:'Taschenetui für 15 ml',brand:'',g:'u',fam:'holzig',line:'acc',kind:'acc',
+  notes:null,sizes:[{ml:0,pr:15}],ess:0});
+
+const LINES={dame:'Damen',herr:'Herren',uni:'Unisex',lux:'Luxury Line',event:'Event',
+  kind:'Kinder',gel:'Duschgel',lot:'Bodylotion',acc:'Zubehör'};
+const CATS=[['','Alles'],['klassik','Parfum 30 / 70 ml'],['lux','Luxury Line 50 ml'],
+  ['event','Event 50 ml'],['gel','Duschgel'],['lot','Bodylotion'],['acc','Zubehör']];
+const GENS=[['','Alle'],['h','Herren'],['d','Damen'],['u','Unisex'],['k','Kinder']];
+const GLBL={d:'Damen',h:'Herren',u:'Unisex',k:'Kinder'};
+const lineKey=p=>['dame','herr','uni','kind'].includes(p.line)?'klassik':p.line;
+</script>
+<script>
+/* =====================================================================
+   MAISON NOIR — Anbindung an Supabase
+   Die beiden Werte unten stehen in Supabase unter
+   Project Settings → Data API  bzw.  API Keys.
+   Der anon key ist zur Veröffentlichung gedacht — der Schutz kommt
+   aus den Row-Level-Security-Regeln in supabase.sql.
+   ===================================================================== */
+const CFG={
+  url:'https://kkmeyshkphnyktijkmzb.supabase.co',
+  key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtrbWV5c2hrcGhueWt0aWprbXpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3ODk3MjUsImV4cCI6MjEwMjM2NTcyNX0.YCasx6I9tulvxgbLdpHhXhwha1Qc88d3opqhs-rcEpA'
+};
+/* ===================================================================== */
+
+const READY = CFG.url.startsWith('https://') && CFG.key.length > 40;
+const sb = READY ? window.supabase.createClient(CFG.url, CFG.key) : null;
+
+/* ---------- Warenkorb bleibt lokal auf dem Gerät ---------- */
+const LS={
+ get(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}},
+ set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+
+let S={me:null,orders:[],cart:[],settings:{showBrands:false}};
+let cat='',gsel='',view='shop',cur=null,curSize=0,samplePick=[],quizStep=0,quizScore={};
+let liveCh=null;
+
+/* ---------- Helfer ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eur=n=>Number(n).toFixed(2).replace('.',',')+' €';
+const famName=f=>(FAM[f]||['—','#888'])[0];
+const famCol=f=>(FAM[f]||['—','#888'])[1];
+const me=()=>S.me;
+const isAdmin=()=>!!S.me&&S.me.role==='admin';
+const minPrice=p=>Math.min(...p.sizes.map(s=>s.pr));
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2800)}
+function brandLine(p){return (S.settings.showBrands&&p.brand)?'inspiriert von '+p.brand:famName(p.fam)}
+function oops(e,fallback){console.error(e);toast((e&&(e.message||e.error_description))||fallback)}
+
+/* ---------- Start ---------- */
+(async function init(){
+  $('#fCount').textContent=P.filter(p=>p.kind==='parfum').length;
+  S.cart=LS.get('mn_cart')||[];
+  buildCats();buildFamSel();render();updCart();
+
+  if(!READY){setupBanner();buildNav();return}
+
+  try{
+    const {data}=await sb.from('settings').select('show_brands').eq('id',1).single();
+    if(data)S.settings.showBrands=!!data.show_brands;
+  }catch(e){console.warn(e)}
+
+  const {data:{session}}=await sb.auth.getSession();
+  await loadProfile(session);
+  sb.auth.onAuthStateChange(async(_e,s)=>{await loadProfile(s);buildNav();render();
+    if(view==='mine')renderMine(); if(view==='admin')renderAdmin();});
+  buildNav();render();
+})();
+
+function setupBanner(){
+  const b=document.createElement('div');
+  b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:300;background:var(--ink3);'
+    +'border-top:1px solid var(--gold-dim);padding:14px var(--pad);text-align:center;font-size:13.5px';
+  b.innerHTML='Noch nicht mit Supabase verbunden — trage <b style="color:var(--gold);font-weight:400">'
+    +'CFG.url</b> und <b style="color:var(--gold);font-weight:400">CFG.key</b> oben in der '
+    +'index.html ein. Stöbern funktioniert, Anmelden und Bestellen noch nicht.';
+  document.body.appendChild(b);
+}
+
+async function loadProfile(session){
+  if(!session){S.me=null;return}
+  const {data,error}=await sb.from('profiles').select('*').eq('id',session.user.id).single();
+  if(error){console.warn(error);S.me=null;return}
+  S.me={id:data.id,email:data.email||session.user.email,name:data.name||'',
+        phone:data.phone||'',role:data.role};
+}
+
+/* ---------- Navigation & Katalog (unverändert) ---------- */
+function buildCats(){
+  $('#gens').innerHTML=GENS.map(([v,l])=>{
+    const n=P.filter(p=>(!v||p.g===v)&&(!cat||lineKey(p)===cat)).length;
+    return `<button class="gen${v===gsel?' on':''}" onclick="setGen('${v}')">${l}<i>${n}</i></button>`}).join('');
+  $('#cats').innerHTML=CATS.map(([v,l])=>{
+    const n=P.filter(p=>(!v||lineKey(p)===v)&&(!gsel||p.g===gsel)).length;
+    return `<button class="cat${v===cat?' on':''}" onclick="setCat('${v}')"
+      ${n?'':'style="opacity:.3"'}>${l}</button>`}).join('');
+}
+function setGen(v){gsel=v;buildCats();render();scrollToGrid()}
+function setCat(v){cat=v;buildCats();render();scrollToGrid()}
+function buildFamSel(){
+  const used=[...new Set(P.map(p=>p.fam))].sort((a,b)=>famName(a).localeCompare(famName(b)));
+  $('#fam').innerHTML='<option value="">Alle Duftfamilien</option>'+
+    used.map(f=>`<option value="${f}">${famName(f)}</option>`).join('');
+}
+function buildNav(){
+  const it=[['shop','Kollektion'],['quiz','Duft-Finder']];
+  if(S.me)it.push(['mine','Meine Bestellungen']);
+  if(isAdmin())it.push(['admin','Verwaltung']);
+  $('#nav').innerHTML=it.map(([v,l])=>
+    `<button class="${view===v?'on':''}" onclick="go('${v}')">${l}</button>`).join('');
+  $('#accBtn').innerHTML=S.me
+    ?`◎ <span class="lbl">${esc((S.me.name||S.me.email).split(' ')[0])}</span>`
+    :'◎ <span class="lbl">Anmelden</span>';
+}
+function go(v){
+  view=v;document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));
+  const el=$('#v-'+v);if(el)el.classList.add('on');
+  $('#hero').style.display=v==='shop'?'':'none';
+  buildNav();window.scrollTo({top:0,behavior:'smooth'});
+  if(v==='quiz'){quizStep=0;quizScore={};renderQuiz()}
+  if(v==='mine')renderMine();
+  if(v==='admin')renderAdmin();
+  if(v!=='admin')stopLive();
+}
+function scrollToGrid(){setTimeout(()=>{const g=$('#grid');if(g)window.scrollTo({top:g.offsetTop-190,behavior:'smooth'})},80)}
+
+function render(){
+  const q=($('#q').value||'').toLowerCase().trim();
+  const ff=$('#fam').value, so=$('#sort').value;
+  let list=P.filter(p=>{
+    if(cat&&lineKey(p)!==cat)return false;
+    if(gsel&&p.g!==gsel)return false;
+    if(ff&&p.fam!==ff)return false;
+    if(!q)return true;
+    const n=p.notes?[p.notes.t,p.notes.h,p.notes.b].join(' '):'';
+    return (p.nr+' '+p.name+' '+p.brand+' '+famName(p.fam)+' '+n).toLowerCase().includes(q);
+  });
+  const num=x=>{const n=parseInt(x.nr,10);return isNaN(n)?9999:n};
+  list.sort((a,b)=> so==='az'?a.name.localeCompare(b.name)
+    : so==='lo'?minPrice(a)-minPrice(b)
+    : so==='hi'?minPrice(b)-minPrice(a)
+    : (num(a)-num(b))||a.nr.localeCompare(b.nr));
+  $('#count').textContent=list.length+' Artikel';
+  const g=$('#grid');
+  if(!list.length){g.className='';
+    g.innerHTML=`<div class="empty"><b>Nichts gefunden</b>
+      Andere Nummer, anderer Name oder eine Duftnote wie „Vanille" oder „Zeder".</div>`;return}
+  if(gsel){g.className='grid';g.innerHTML=list.map(card).join('');return}
+  g.className='';
+  g.innerHTML=['h','d','u','k'].map(k=>{
+    const sub=list.filter(p=>p.g===k); if(!sub.length)return '';
+    return `<div class="ghead"><h3>${GLBL[k]}</h3><span>${sub.length} Artikel</span><span class="ln"></span></div>
+      <div class="grid">${sub.map(card).join('')}</div>`;
+  }).join('');
+}
+function card(p){
+  const c=famCol(p.fam);
+  return `<button class="card" onclick="openP('${p.id}')">
+    <div class="top">
+      <span class="blot" style="background:linear-gradient(180deg,${c}22,${c},${c}55)"></span>
+      <div style="min-width:0;flex:1">
+        <div class="nr">№ ${esc(p.nr)}</div><h3>${esc(p.name)}</h3>
+        <div class="insp">${esc(brandLine(p))}</div></div></div>
+    <div class="fam"><i style="background:${c}"></i>${esc(famName(p.fam))} ·
+      ${esc(p.kind==='parfum'?GLBL[p.g]:LINES[p.line])}</div>
+    <div class="foot">
+      <div class="price">${p.sizes.length>1?'ab ':''}${eur(minPrice(p))}
+        <small>${p.sizes.map(s=>s.ml?s.ml+' ml':'Stück').join(' · ')}</small></div>
+      <span class="plus">+</span></div></button>`;
+}
+
+/* ---------- Produktansicht ---------- */
+function openP(id){
+  cur=P.find(p=>p.id===id);curSize=0;
+  $('#pTitle').textContent='№ '+cur.nr+' · '+cur.name;
+  $('#pBody').innerHTML=pBody();
+  $('#pAdd').onclick=()=>{addCart(cur.id,curSize);closeAll()};
+  openSheet('#pSheet');
+  requestAnimationFrame(()=>{const py=$('#pyr');if(py)py.classList.add('go')});
+}
+function pBody(){
+  const p=cur,c=famCol(p.fam);
+  const info=p.kind==='parfum'
+    ? `${p.ess} % Duftessenz · Haltbarkeit ca. ${p.ess===30?'8–10':'6–8'} Stunden · auf pflanzlichem Alkohol, ohne Wasser${p.line==='kind'?' · hypoallergen':''}`
+    : p.kind==='gel' ? 'Duftendes Duschgel, 250 ml · vegan · tierversuchsfrei'
+    : p.kind==='lot' ? 'Duftende Bodylotion mit Arganöl, 150 ml · vegan · tierversuchsfrei'
+    : 'Nachfüllbares Taschenetui für 15-ml-Flakons';
+  const pyr=p.notes?`
+    <div class="eyebrow" style="margin-top:22px">Duftpyramide</div>
+    <div class="pyr" id="pyr">
+      <div class="lvl"><span class="k">Kopfnote</span><span class="v">${esc(p.notes.t)}</span>
+        <span class="w"><i style="--pw:100%;background:${c}"></i></span></div>
+      <div class="lvl"><span class="k">Herznote</span><span class="v">${esc(p.notes.h)}</span>
+        <span class="w"><i style="--pw:78%;background:${c}"></i></span></div>
+      <div class="lvl"><span class="k">Basisnote</span><span class="v">${esc(p.notes.b)}</span>
+        <span class="w"><i style="--pw:56%;background:${c}"></i></span></div></div>`:'';
+  const gift=p.sizes.some(s=>s.ml===70)
+    ? `<div class="gift">✦ Zum 70-ml-Flakon gibt es den passenden 15-ml-Nachfüllflakon gratis dazu.</div>`:'';
+  return `
+    <div class="fam"><i style="background:${c}"></i>${esc(famName(p.fam))}
+      ${p.kind==='parfum'?' · '+esc(GLBL[p.g]):''} · ${esc(LINES[p.line])}</div>
+    ${p.brand&&S.settings.showBrands?`<p class="muted tiny" style="margin-top:8px">Inspiriert von ${esc(p.brand)}</p>`:''}
+    ${pyr}<div class="note">${info}</div>
+    <div class="eyebrow" style="margin-top:20px">Größe wählen</div>
+    <div class="sizes" id="szs">${p.sizes.map((s,i)=>`
+      <button class="size${i===0?' on':''}" onclick="pickSize(${i})">
+        <b>${s.ml?s.ml+' ml':'1 Stück'}</b><span>${eur(s.pr)}</span>
+        ${s.ml===70?'<em>+ 15 ml gratis</em>':''}</button>`).join('')}</div>${gift}`;
+}
+function pickSize(i){curSize=i;
+  document.querySelectorAll('#szs .size').forEach((b,j)=>b.classList.toggle('on',i===j))}
+
+/* ---------- Warenkorb ---------- */
+function addCart(id,si){
+  const p=P.find(x=>x.id===id),s=p.sizes[si];
+  const ex=S.cart.find(l=>l.id===id&&l.ml===s.ml);
+  if(ex)ex.n++;else S.cart.push({id,ml:s.ml,pr:s.pr,n:1});
+  LS.set('mn_cart',S.cart);updCart();toast(p.name+' hinzugefügt');
+}
+function setQty(i,d){S.cart[i].n+=d;if(S.cart[i].n<1)S.cart.splice(i,1);
+  LS.set('mn_cart',S.cart);updCart();renderCart()}
+function delLine(i){S.cart.splice(i,1);LS.set('mn_cart',S.cart);updCart();renderCart()}
+const subtotal=()=>S.cart.reduce((a,l)=>a+l.pr*l.n,0);
+const freeSamples=()=>subtotal()>=50?2:0;
+const refills=()=>S.cart.filter(l=>l.ml===70).reduce((a,l)=>a+l.n,0);
+function updCart(){$('#cartN').textContent=S.cart.reduce((a,l)=>a+l.n,0)}
+function openCart(){renderCart();openSheet('#cSheet')}
+function renderCart(){
+  if(!S.cart.length){
+    $('#cBody').innerHTML=`<div class="empty"><b>Noch nichts gewählt</b>
+      Stöbere in der Kollektion oder lass dir vom Duft-Finder etwas vorschlagen.</div>`;
+    $('#cFoot').innerHTML=`<button class="btn ghost" style="width:100%" onclick="closeAll();go('quiz')">Duft-Finder öffnen</button>`;
+    return}
+  const lines=S.cart.map((l,i)=>{
+    const p=P.find(x=>x.id===l.id),c=famCol(p.fam);
+    return `<div class="ci"><span class="bl" style="background:linear-gradient(180deg,${c},${c}55)"></span>
+      <div class="m"><h4>${esc(p.name)}</h4>
+        <div class="sub">№ ${esc(p.nr)} · ${l.ml?l.ml+' ml':'1 Stück'}</div>
+        <div class="qty"><button onclick="setQty(${i},-1)">−</button><b>${l.n}</b>
+          <button onclick="setQty(${i},1)">+</button></div></div>
+      <div class="pr">${eur(l.pr*l.n)}<span class="rm" onclick="delLine(${i})">Entfernen</span></div></div>`}).join('');
+  const fs=freeSamples(),rf=refills();
+  const extras=(rf?`<div class="gift">✦ ${rf}× 15-ml-Nachfüllflakon gratis (zum 70-ml-Flakon)</div>`:'')
+    +(fs?`<div class="gift">✦ ${fs} Duftproben frei wählbar — du wählst sie beim Abschluss</div>`
+        :`<div class="sum" style="margin-top:12px">Ab ${eur(50)} sind 2 Duftproben frei wählbar.
+           Noch ${eur(50-subtotal())}.</div>`);
+  $('#cBody').innerHTML=lines+extras;
+  $('#cFoot').innerHTML=`<div class="sum tot"><span>Summe</span><b>${eur(subtotal())}</b></div>
+    <div class="tiny muted" style="margin:6px 0 14px">Zahlung bar bei Abholung oder Lieferung.</div>
+    <button class="btn solid" style="width:100%" onclick="startCheckout()">Zur Bestellung</button>`;
+}
+
+/* ---------- Sheets ---------- */
+function openSheet(sel){closeAll(true);$('#scrim').classList.add('on');$(sel).classList.add('on');
+  document.body.style.overflow='hidden'}
+function closeAll(keep){['#pSheet','#cSheet','#mSheet'].forEach(s=>$(s).classList.remove('on'));
+  if(!keep){$('#scrim').classList.remove('on');document.body.style.overflow=''}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+
+/* ---------- Konto über Supabase Auth ---------- */
+function accountClick(){S.me?openAccount():openAuth('login')}
+function openAuth(mode){
+  if(!READY){toast('Zuerst Supabase in der index.html eintragen');return}
+  $('#mTitle').textContent=mode==='login'?'Anmelden':'Konto anlegen';
+  $('#mBody').innerHTML=(mode==='reg'?`<label class="f"><span>Name</span>
+      <input class="inp" id="aName" placeholder="Vor- und Nachname"></label>`:'')
+    +`<label class="f"><span>E-Mail</span><input class="inp" id="aMail" type="email" placeholder="du@beispiel.de"></label>
+      <label class="f"><span>Passwort</span><input class="inp" id="aPw" type="password" placeholder="Mindestens 6 Zeichen"></label>
+      ${mode==='reg'?`<label class="f"><span>Telefon (für Rückfragen)</span>
+        <input class="inp" id="aTel" placeholder="0170 1234567"></label>`:''}
+      <div class="err" id="aErr"></div>
+      <button class="btn ghost tiny" style="width:100%;margin-top:6px" onclick="openAuth('${mode==='login'?'reg':'login'}')">
+        ${mode==='login'?'Noch kein Konto? Jetzt anlegen':'Schon registriert? Zur Anmeldung'}</button>`;
+  $('#mFoot').innerHTML=`<button class="btn solid" style="width:100%" id="authGo" onclick="doAuth('${mode}')">
+    ${mode==='login'?'Anmelden':'Konto anlegen'}</button>`;
+  openSheet('#mSheet');
+  setTimeout(()=>{const f=$('#aName')||$('#aMail');if(f)f.focus()},260);
+}
+async function doAuth(mode){
+  const mail=($('#aMail').value||'').trim().toLowerCase(),pw=$('#aPw').value||'';
+  const err=$('#aErr'),btn=$('#authGo');err.textContent='';
+  if(!mail.includes('@')){err.textContent='Bitte eine gültige E-Mail-Adresse eingeben.';return}
+  if(pw.length<6){err.textContent='Das Passwort braucht mindestens 6 Zeichen.';return}
+  btn.disabled=true;btn.textContent='Einen Moment …';
+  try{
+    if(mode==='reg'){
+      const name=($('#aName').value||'').trim(),phone=($('#aTel').value||'').trim();
+      if(name.length<2){err.textContent='Bitte den Namen eintragen.';return}
+      const {data,error}=await sb.auth.signUp({email:mail,password:pw,options:{data:{name,phone}}});
+      if(error)throw error;
+      if(!data.session){err.textContent='Konto angelegt. Bitte bestätige die E-Mail und melde dich dann an.';
+        btn.disabled=false;btn.textContent='Konto anlegen';return}
+    }else{
+      const {error}=await sb.auth.signInWithPassword({email:mail,password:pw});
+      if(error)throw error;
+    }
+    const {data:{session}}=await sb.auth.getSession();
+    await loadProfile(session);closeAll();buildNav();
+    toast('Angemeldet als '+(S.me.name||S.me.email));
+  }catch(e){
+    const m=(e.message||'').toLowerCase();
+    err.textContent = m.includes('invalid login') ? 'E-Mail oder Passwort stimmt nicht.'
+      : m.includes('already registered')||m.includes('already exists') ? 'Für diese E-Mail gibt es bereits ein Konto.'
+      : m.includes('rate') ? 'Zu viele Versuche. Bitte kurz warten.'
+      : e.message||'Das hat nicht geklappt.';
+  }finally{if(btn){btn.disabled=false;
+    btn.textContent=mode==='login'?'Anmelden':'Konto anlegen'}}
+}
+function openAccount(){
+  const u=S.me;
+  $('#mTitle').textContent='Konto';
+  $('#mBody').innerHTML=`<div class="eyebrow">Angemeldet als</div>
+    <h3 class="serif" style="font-size:24px;margin:8px 0 4px">${esc(u.name||u.email)}</h3>
+    <div class="muted tiny">${esc(u.email)}${u.role==='admin'?' · Inhaber-Konto':''}</div>
+    <label class="f" style="margin-top:22px"><span>Telefon</span>
+      <input class="inp" id="pTel" value="${esc(u.phone||'')}" placeholder="0170 1234567"></label>
+    <button class="btn ghost tiny" onclick="saveProfile()">Telefonnummer speichern</button>`;
+  $('#mFoot').innerHTML=`<div class="two">
+    <button class="btn ghost" onclick="closeAll();go('mine')">Bestellungen</button>
+    <button class="btn ghost" onclick="logout()">Abmelden</button></div>`;
+  openSheet('#mSheet');
+}
+async function saveProfile(){
+  const phone=($('#pTel').value||'').trim();
+  const {error}=await sb.from('profiles').update({phone}).eq('id',S.me.id);
+  if(error)return oops(error,'Speichern nicht möglich');
+  S.me.phone=phone;toast('Gespeichert');
+}
+async function logout(){stopLive();await sb.auth.signOut();S.me=null;closeAll();buildNav();
+  if(view==='admin'||view==='mine')go('shop');toast('Abgemeldet')}
+
+/* ---------- Bestellung ---------- */
+const PFX={blumig:'FLEUR',orient:'AMBRE',holzig:'BOIS',frisch:'FRAIS',gourmand:'SUCRE',
+  fougere:'FOUGERE',chypre:'CHYPRE',leder:'CUIR',aqua:'MARIN',zitrus:'AGRUM',pudrig:'POUDRE',oud:'OUD'};
+function prefix(){
+  const cnt={};S.cart.forEach(l=>{const p=P.find(x=>x.id===l.id);cnt[p.fam]=(cnt[p.fam]||0)+l.n});
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+  return PFX[top?top[0]:'holzig']||'NOIR';
+}
+function startCheckout(){
+  if(!S.cart.length)return;
+  if(!READY){toast('Zuerst Supabase in der index.html eintragen');return}
+  if(!S.me){openAuth('login');toast('Zum Bestellen bitte anmelden');return}
+  samplePick=[];renderCheckout();openSheet('#mSheet');
+}
+let oMode='abholung';
+function renderCheckout(){
+  const u=S.me,fs=freeSamples();
+  $('#mTitle').textContent='Bestellung abschließen';
+  const pool=P.filter(p=>p.kind==='parfum').sort((a,b)=>a.name.localeCompare(b.name));
+  $('#mBody').innerHTML=`
+    <div class="two">
+      <label class="f"><span>Name</span><input class="inp" id="oName" value="${esc(u.name||'')}"></label>
+      <label class="f"><span>Telefon</span><input class="inp" id="oTel" value="${esc(u.phone||'')}" placeholder="0170 1234567"></label>
+    </div>
+    <div class="eyebrow" style="margin-bottom:8px">Übergabe</div>
+    <div class="sizes" style="margin-bottom:18px">
+      <button class="size on" id="mAb" onclick="setMode('abholung')"><b>Abholung</b>
+        <span>Duft-Code vorzeigen, bar zahlen</span></button>
+      <button class="size" id="mLi" onclick="setMode('lieferung')"><b>Lieferung</b>
+        <span>Bar bei Übergabe</span></button></div>
+    <div id="modeBox"></div>
+    ${fs?`<div class="eyebrow" style="margin-top:6px">${fs} Duftproben gratis — bitte auswählen
+      <span id="sCount" style="color:var(--gold)">(0/${fs})</span></div>
+      <div class="samp" id="sampBox">${pool.map(p=>`
+        <button class="sc" data-id="${p.id}" onclick="pickSample('${p.id}',${fs})">
+          <i style="background:${famCol(p.fam)}"></i>
+          <div><b>${esc(p.name)}</b><span>№ ${esc(p.nr)}</span></div></button>`).join('')}</div>`:''}
+    <label class="f" style="margin-top:18px"><span>Anmerkung (optional)</span>
+      <textarea class="inp" id="oNote" placeholder="Wunschtermin, Klingelname, Hinweise …"></textarea></label>
+    <div class="sum tot" style="border-top:1px solid var(--line);padding-top:14px">
+      <span>Bar zu zahlen</span><b>${eur(subtotal())}</b></div>
+    <div class="err" id="oErr"></div>`;
+  $('#mFoot').innerHTML=`<button class="btn solid" style="width:100%" id="ordGo"
+    onclick="placeOrder()">Bestellung abschicken</button>`;
+  setMode('abholung');
+}
+function setMode(m){
+  oMode=m;$('#mAb').classList.toggle('on',m==='abholung');$('#mLi').classList.toggle('on',m==='lieferung');
+  $('#modeBox').innerHTML=m==='lieferung'
+    ? `<label class="f"><span>Lieferadresse</span>
+       <textarea class="inp" id="oAdr" placeholder="Straße und Hausnummer&#10;PLZ und Ort"></textarea></label>
+       <div class="note">Bezahlt wird bar bei der Übergabe an der Tür.</div>`
+    : `<div class="note">Du bekommst einen <b>Duft-Code</b>. Sobald die Bestellung bereitliegt,
+       zeigst du ihn bei der Abholung vor und zahlst bar.</div>`;
+}
+function pickSample(id,max){
+  const i=samplePick.indexOf(id);
+  if(i>-1)samplePick.splice(i,1);
+  else{if(samplePick.length>=max){toast('Es sind '+max+' Proben wählbar');return}samplePick.push(id)}
+  document.querySelectorAll('#sampBox .sc').forEach(b=>b.classList.toggle('on',samplePick.includes(b.dataset.id)));
+  $('#sCount').textContent=`(${samplePick.length}/${max})`;
+}
+async function placeOrder(){
+  const err=$('#oErr'),btn=$('#ordGo');
+  const name=($('#oName').value||'').trim(),tel=($('#oTel').value||'').trim();
+  err.textContent='';
+  if(name.length<2){err.textContent='Bitte den Namen eintragen.';return}
+  if(tel.replace(/\D/g,'').length<6){err.textContent='Bitte eine erreichbare Telefonnummer eintragen.';return}
+  let adr='';
+  if(oMode==='lieferung'){adr=($('#oAdr').value||'').trim();
+    if(adr.length<8){err.textContent='Bitte die vollständige Lieferadresse eintragen.';return}}
+  btn.disabled=true;btn.textContent='Wird abgeschickt …';
+  try{
+    const {data:o,error}=await sb.from('orders').insert({
+      prefix:prefix(),user_id:S.me.id,name,phone:tel,mode:oMode,address:adr,
+      note:($('#oNote').value||'').trim(),total:subtotal(),refills:refills(),
+      samples:samplePick.map(id=>{const p=P.find(x=>x.id===id);return p.nr+' '+p.name})
+    }).select().single();
+    if(error)throw error;
+    const items=S.cart.map(l=>{const p=P.find(x=>x.id===l.id);
+      return{order_id:o.id,nr:p.nr,name:p.name,ml:l.ml||0,price:l.pr,qty:l.n}});
+    const {error:e2}=await sb.from('order_items').insert(items);
+    if(e2)throw e2;
+    if(!S.me.phone){await sb.from('profiles').update({phone:tel}).eq('id',S.me.id);S.me.phone=tel}
+    S.cart=[];LS.set('mn_cart',S.cart);updCart();
+    showConfirm({...o,items:items.map(i=>({nr:i.nr,name:i.name,ml:i.ml,pr:i.price,n:i.qty}))});
+  }catch(e){oops(e,'Die Bestellung konnte nicht gespeichert werden.');
+    err.textContent=e.message||'Bitte noch einmal versuchen.';}
+  finally{if(btn){btn.disabled=false;btn.textContent='Bestellung abschicken'}}
+}
+function showConfirm(o){
+  $('#mTitle').textContent='Bestellung eingegangen';
+  $('#mBody').innerHTML=`<div class="seal">
+      <div class="wax"><span>MN</span></div>
+      <div class="eyebrow">Dein Duft-Code</div>
+      <div class="code">${esc(o.code)}</div>
+      <button class="copy" onclick="cp('${esc(o.code)}')">Code kopieren</button></div>
+    <div class="note" style="margin-top:26px">
+      ${o.mode==='abholung'
+        ? 'Zeig den Code bei der <b>Abholung</b> vor. Bezahlt wird bar bei der Übergabe.'
+        : 'Wir melden uns telefonisch zur <b>Lieferung</b>. Bezahlt wird bar bei der Übergabe.'}</div>
+    <div class="sum" style="margin-top:14px"><span>Betrag</span><span>${eur(o.total)}</span></div>
+    ${(o.samples||[]).length?`<div class="gift">✦ Duftproben: ${esc((o.samples||[]).join(' · '))}</div>`:''}
+    ${o.refills?`<div class="gift">✦ ${o.refills}× 15-ml-Nachfüllflakon gratis</div>`:''}`;
+  $('#mFoot').innerHTML=`<div class="two">
+    <button class="btn ghost" onclick="closeAll();go('shop')">Weiter stöbern</button>
+    <button class="btn solid" onclick="closeAll();go('mine')">Status ansehen</button></div>`;
+  openSheet('#mSheet');
+}
+function cp(t){navigator.clipboard?.writeText(t).then(()=>toast('Code kopiert'),()=>toast(t))}
+
+/* ---------- Status & Timeline ---------- */
+const ST=[['neu','Eingegangen','Die Bestellung liegt vor und wird geprüft.'],
+ ['kuratiert','Wird kuratiert','Die Düfte werden zusammengestellt und verpackt.'],
+ ['bereit','Bereit','—'],
+ ['fertig','Bezahlt & übergeben','Bar bezahlt, Bestellung abgeschlossen.']];
+const stLabel=s=>(ST.find(x=>x[0]===s)||['','Storniert'])[1];
+const readyText=o=>o.mode==='abholung'
+  ? 'Liegt zur Abholung bereit — Duft-Code mitbringen.' : 'Verpackt und bereit zur Lieferung.';
+function timeline(o){
+  if(o.status==='storno')return `<div class="note" style="border-color:var(--bad)">
+    Diese Bestellung wurde storniert.</div>`;
+  const i=ST.findIndex(s=>s[0]===o.status);
+  return `<div class="tl">${ST.map(([k,l,d],j)=>`
+    <div class="st ${j<i?'done':j===i?'now done':''}">
+      <b>${l}</b><p>${k==='bereit'?readyText(o):d}</p></div>`).join('')}</div>`;
+}
+function norm(o){return {...o,tel:o.phone,adr:o.address,
+  items:(o.order_items||[]).map(i=>({nr:i.nr,name:i.name,ml:i.ml,pr:Number(i.price),n:i.qty})),
+  samples:o.samples||[],ts:new Date(o.created_at).getTime(),total:Number(o.total)}}
+function orderCard(o,admin){
+  const cols={neu:'var(--warn)',kuratiert:'var(--warn)',bereit:'var(--ok)',
+    fertig:'var(--smoke)',storno:'var(--bad)'};
+  const d=new Date(o.ts);
+  return `<div class="ord" id="o-${o.code}">
+    <div class="ohead" onclick="document.getElementById('o-${o.code}').classList.toggle('open')">
+      <span class="c">${esc(o.code)}</span>
+      <span class="tag" style="color:${cols[o.status]}">${stLabel(o.status)}</span>
+      <span class="tiny muted">${o.mode==='abholung'?'Abholung':'Lieferung'}</span>
+      ${admin?`<span class="tiny">${esc(o.name)} · ${esc(o.tel)}</span>`:''}
+      <span class="tiny muted" style="margin-left:auto">${d.toLocaleDateString('de-DE')} ·
+        <b style="color:var(--gold);font-weight:400">${eur(o.total)}</b>
+        <span class="chev">▾</span></span></div>
+    <div class="odetail">
+      ${o.items.map(i=>`<div class="row"><span>${i.n}× № ${esc(i.nr)} ${esc(i.name)}
+        <span class="muted tiny">${i.ml?i.ml+' ml':'Stück'}</span></span>
+        <span>${eur(i.pr*i.n)}</span></div>`).join('')}
+      ${o.samples.length?`<div class="gift">✦ Proben: ${esc(o.samples.join(' · '))}</div>`:''}
+      ${o.refills?`<div class="gift">✦ ${o.refills}× 15-ml-Nachfüllflakon gratis</div>`:''}
+      ${o.adr?`<div class="note">${esc(o.adr)}</div>`:''}
+      ${o.note?`<div class="note">Anmerkung: ${esc(o.note)}</div>`:''}
+      ${timeline(o)}</div>
+    ${admin?adminActs(o):''}</div>`;
+}
+function adminActs(o){
+  const b=[['neu','Eingegangen'],['kuratiert','Wird kuratiert'],['bereit','Bereit'],
+    ['fertig','Bezahlt & übergeben'],['storno','Stornieren']];
+  return `<div class="sbar"><span class="lb">Status setzen</span>${b.map(([k,l])=>
+    `<button class="${o.status===k?'on':''}${k==='storno'?' no':''}"
+      onclick="event.stopPropagation();setStatus('${o.id}','${k}')">${l}</button>`).join('')}</div>`;
+}
+
+/* ---------- Meine Bestellungen ---------- */
+async function renderMine(){
+  if(!S.me){$('#mineOut').innerHTML='';openAuth('login');return}
+  $('#mineOut').innerHTML='<div class="empty">Wird geladen …</div>';
+  const {data,error}=await sb.from('orders').select('*, order_items(*)')
+    .order('created_at',{ascending:false});
+  if(error)return oops(error,'Bestellungen konnten nicht geladen werden');
+  const list=(data||[]).map(norm);
+  $('#mineOut').innerHTML=list.length?list.map(o=>orderCard(o,false)).join('')
+    :`<div class="empty"><b>Noch keine Bestellung</b>
+      Sobald du bestellst, findest du hier den Duft-Code und den aktuellen Stand.</div>`;
+}
+
+/* ---------- Verfolgen (ohne Anmeldung) ---------- */
+function openTrack(){go('track');setTimeout(()=>$('#tCode').focus(),300)}
+async function findOrder(){
+  const c=($('#tCode').value||'').trim().toUpperCase();
+  $('#tErr').textContent='';$('#tOut').innerHTML='';
+  if(!c)return;
+  if(!READY){$('#tErr').textContent='Noch nicht mit Supabase verbunden.';return}
+  const {data,error}=await sb.rpc('track_order',{p_code:c});
+  if(error)return oops(error,'Abfrage nicht möglich');
+  const o=(data||[])[0];
+  if(!o){$('#tErr').textContent='Zu diesem Code gibt es keine Bestellung. Bitte Schreibweise prüfen.';return}
+  $('#tOut').innerHTML=`<div style="margin-top:24px">
+    <div class="eyebrow">Bestellung ${esc(o.code)}</div>
+    <h3 class="serif" style="font-size:22px;margin:8px 0">${eur(o.total)} ·
+      ${o.mode==='abholung'?'Abholung':'Lieferung'}</h3>${timeline(o)}</div>`;
+}
+
+/* ---------- Verwaltung ---------- */
+async function renderAdmin(){
+  if(!isAdmin()){$('#adminOut').innerHTML='';go('shop');toast('Nur für das Inhaber-Konto');return}
+  $('#adminWho').textContent=S.me.email;
+  $('#brandSw').classList.toggle('on',!!S.settings.showBrands);
+  const {data,error}=await sb.from('orders').select('*, order_items(*)')
+    .order('created_at',{ascending:false});
+  if(error)return oops(error,'Bestellungen konnten nicht geladen werden');
+  S.orders=(data||[]).map(norm);
+  startLive();paintAdmin();
+}
+function paintAdmin(){
+  const os=S.orders;
+  const open=os.filter(o=>['neu','kuratiert','bereit'].includes(o.status));
+  const rev=os.filter(o=>o.status==='fertig').reduce((a,o)=>a+o.total,0);
+  $('#stats').innerHTML=[[os.length,'Bestellungen'],[open.length,'Offen'],
+    [os.filter(o=>o.status==='bereit').length,'Bereit'],[eur(rev),'Bar eingenommen']]
+    .map(([v,l])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+  const q=($('#aq').value||'').toLowerCase().trim(),f=$('#afil').value;
+  const list=os.filter(o=>(!f||o.status===f)&&
+    (!q||(o.code+' '+o.name+' '+o.tel).toLowerCase().includes(q)));
+  $('#adminOut').innerHTML=list.length?list.map(o=>orderCard(o,true)).join('')
+    :`<div class="empty"><b>${os.length?'Kein Treffer':'Noch keine Bestellungen'}</b>
+      ${os.length?'Andere Suche oder anderen Statusfilter wählen.'
+        :'Sobald jemand bestellt, erscheint sie hier — live, ohne Neuladen.'}</div>`;
+}
+async function setStatus(id,st){
+  const {error}=await sb.from('orders').update({status:st}).eq('id',id);
+  if(error)return oops(error,'Status konnte nicht geändert werden');
+  const o=S.orders.find(x=>x.id===id);if(o)o.status=st;
+  paintAdmin();const el=document.getElementById('o-'+(o?o.code:''));if(el)el.classList.add('open');
+  toast((o?o.code:'Bestellung')+' → '+stLabel(st));
+}
+async function toggleBrands(){
+  const v=!S.settings.showBrands;
+  const {error}=await sb.from('settings').update({show_brands:v}).eq('id',1);
+  if(error)return oops(error,'Einstellung konnte nicht gespeichert werden');
+  S.settings.showBrands=v;$('#brandSw').classList.toggle('on',v);render();
+  toast(v?'Markenreferenzen sind sichtbar':'Markenreferenzen sind ausgeblendet');
+}
+/* Live-Aktualisierung: neue Bestellungen erscheinen ohne Neuladen */
+function startLive(){
+  if(liveCh)return;
+  liveCh=sb.channel('orders-live')
+    .on('postgres_changes',{event:'*',schema:'public',table:'orders'},async payload=>{
+      if(payload.eventType==='INSERT'){
+        const {data}=await sb.from('orders').select('*, order_items(*)').eq('id',payload.new.id).single();
+        if(data){S.orders.unshift(norm(data));paintAdmin();toast('Neue Bestellung: '+data.code)}
+      }else if(payload.eventType==='UPDATE'){
+        const o=S.orders.find(x=>x.id===payload.new.id);
+        if(o){Object.assign(o,{status:payload.new.status});paintAdmin()}
+      }
+    }).subscribe();
+}
+function stopLive(){if(liveCh){sb.removeChannel(liveCh);liveCh=null}}
+
+/* ---------- Duft-Finder ---------- */
+const Q=[
+ {q:'Welche Stimmung soll der Duft tragen?',a:[
+   ['Frisch & klar','Zitrus, Luft, Wasser',{frisch:3,zitrus:3,aqua:2}],
+   ['Warm & sinnlich','Amber, Gewürze, Harz',{orient:3,oud:2,leder:2}],
+   ['Süß & verführerisch','Vanille, Karamell, Frucht',{gourmand:3,blumig:1}],
+   ['Holzig & markant','Zeder, Vetiver, Patchouli',{holzig:3,fougere:2,chypre:2}]]},
+ {q:'Wann wirst du ihn am häufigsten tragen?',a:[
+   ['Tagsüber','Büro, Alltag, Unterwegs',{frisch:2,zitrus:2,fougere:1,blumig:1}],
+   ['Am Abend','Essen, Ausgehen, Nähe',{orient:2,gourmand:2,leder:1,oud:1}],
+   ['Zu besonderen Anlässen','Wenn es zählt',{oud:2,orient:2,chypre:2}],
+   ['Immer','Ein Duft für alles',{holzig:2,pudrig:2,chypre:1}]]},
+ {q:'Welche Jahreszeit hast du im Sinn?',a:[
+   ['Frühling & Sommer','Leicht und offen',{frisch:3,zitrus:2,aqua:2,blumig:1}],
+   ['Herbst & Winter','Dicht und wärmend',{orient:3,gourmand:2,oud:2,leder:1}],
+   ['Das ganze Jahr','Wandelbar',{holzig:2,chypre:2,pudrig:1}]]},
+ {q:'Wie präsent darf er sein?',a:[
+   ['Dezent','Nah an der Haut',{pudrig:3,frisch:2,blumig:1}],
+   ['Ausgewogen','Merkbar, nicht laut',{blumig:2,chypre:2,holzig:2,fougere:1}],
+   ['Präsent','Man dreht sich um',{oud:3,orient:2,gourmand:2,leder:2}]]},
+ {q:'Für wen suchst du?',a:[
+   ['Für ihn','',{_g:'h'}],['Für sie','',{_g:'d'}],['Unisex','Geht für alle',{_g:'u'}]]}
+];
+function renderQuiz(){
+  const box=$('#quizBox');
+  if(quizStep<Q.length){
+    const q=Q[quizStep];
+    box.innerHTML=`<div class="eyebrow">Frage ${quizStep+1} von ${Q.length}</div>
+      <div class="qbar"><i style="width:${quizStep/Q.length*100}%"></i></div>
+      <h3>${q.q}</h3>
+      <div class="opts">${q.a.map((o,i)=>`<button class="opt" onclick="answer(${i})">
+        <b>${o[0]}</b>${o[1]?`<span>${o[1]}</span>`:''}</button>`).join('')}</div>
+      ${quizStep?`<button class="btn ghost" style="margin-top:26px" onclick="quizStep--;renderQuiz()">Zurück</button>`:''}`;
+  }else{
+    const g=quizScore._g;
+    let list=P.filter(p=>p.kind==='parfum'&&(!g||p.g===g||(g!=='u'&&p.g==='u')));
+    list=list.map(p=>({p,s:(quizScore[p.fam]||0)+(p.g===g?1.5:0)+Math.random()*.6}))
+      .sort((a,b)=>b.s-a.s).slice(0,3).map(x=>x.p);
+    box.innerHTML=`<div class="eyebrow">Dein Ergebnis</div>
+      <div class="qbar"><i style="width:100%"></i></div>
+      <h3>Drei Düfte, die zu deinen Antworten passen</h3>
+      <div class="grid" style="margin-top:30px;text-align:left">${list.map(card).join('')}</div>
+      <button class="btn ghost" style="margin-top:26px" onclick="quizStep=0;quizScore={};renderQuiz()">
+        Noch einmal</button>`;
+  }
+}
+function answer(i){
+  const w=Q[quizStep].a[i][2];
+  for(const k in w){if(k==='_g')quizScore._g=w[k];else quizScore[k]=(quizScore[k]||0)+w[k]}
+  quizStep++;renderQuiz();
+}
+</script>
+
+</body>
+</html>
